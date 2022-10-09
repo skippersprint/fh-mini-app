@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-class ControlScreen extends StatelessWidget {
-  const ControlScreen({super.key});
+
+class HelpGuide extends StatelessWidget {
+  const HelpGuide({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          color: Color.fromARGB(255, 244, 54, 212),
+          color: Color.fromARGB(255, 23, 80, 238),
         ),
       ),
     );
