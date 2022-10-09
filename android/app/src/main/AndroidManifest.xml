@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fh_mini_app">
    <application
-        android:label="fh_mini_app"
+        android:label="FarmHouse"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
