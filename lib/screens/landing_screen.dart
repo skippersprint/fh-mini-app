@@ -24,7 +24,7 @@ class _LandingScreenState extends State<LandingScreen> {
   void fetchData() async {
     await Future.delayed(Duration(seconds: 2));
     try {
-      await get(Uri.parse(url)).timeout(const Duration(seconds: 10));
+      await get(Uri.parse(url)).timeout(const Duration(seconds: 1));
       if (mounted) {
         Navigator.pushReplacement(
             context,
@@ -117,7 +117,7 @@ class _LandingScreenState extends State<LandingScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(
-              "Couldn't locate pod",
+              "Couldn't locate pod :/",
               style: themeData.textTheme.headline4,
             ),
             content: RichText(
@@ -125,7 +125,9 @@ class _LandingScreenState extends State<LandingScreen> {
                   style: const TextStyle(color: brandBlack),
                   children: [
                     const WidgetSpan(
-                        child: Icon(Icons.lightbulb_outline_rounded)),
+                        child: Icon(Icons.lightbulb_outline_rounded),
+                        alignment: PlaceholderAlignment.middle
+                        ),
                     const TextSpan(text: 'View '),
                     TextSpan(
                         text: 'help guide',
