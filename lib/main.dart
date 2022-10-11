@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:fh_mini_app/screens/control_screen.dart';
 import 'package:fh_mini_app/screens/landing_screen.dart';
 import 'package:fh_mini_app/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Poppins'
           ),
           
-      home: LandingScreen()
+      home: ControlScreen()
     );
   }
 }
