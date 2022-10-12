@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Poppins'
           ),
           
-      home: ControlScreen()
+      home: LandingScreen()
     );
   }
 }

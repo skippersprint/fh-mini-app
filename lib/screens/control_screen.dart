@@ -1,15 +1,33 @@
+import 'dart:async';
+
 import 'package:fh_mini_app/utils/constants.dart';
 import 'package:fh_mini_app/utils/widget_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+
+//Parent Control Widget
+//On instantiation enables manualMode (life of 2min)
+//Consists of the model assets(gif and img) and a bottom navigation bar
+//In it resides more stateful widgets - FogControl, RotationControl, NeoControl
 
 class ControlScreen extends StatefulWidget {
-  const ControlScreen({super.key});
-
+   ControlScreen({super.key,});
+  String name = 'ankit';
   @override
   State<ControlScreen> createState() => _ControlScreenState();
 }
 
 class _ControlScreenState extends State<ControlScreen> {
+  void triggerManualMode() async {
+    try {
+      Response resp = await get(Uri.parse('http://192.168.4.1/manualMode'))
+          .timeout(Duration(seconds: 3));
+      debugPrint('In manual mode now (limited)');
+    } on TimeoutException catch (_) {
+      debugPrint('Connection Timeout');
+    }
+  }
+
   bool _isGif = true;
   static bool _lights = false;
   static int _selectedIndex = 0;
@@ -24,19 +42,18 @@ class _ControlScreenState extends State<ControlScreen> {
       ),
     ),
     FogControl(),
-    Container(
-      color: Color.fromARGB(255, 255, 223, 233),
-      child: Text(
-        'Rotation Control',
-        style: optionStyle,
-      ),
-    ),
+    SpinControl(),
   ];
 
   void _onItemtapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void initState() {
+    super.initState();
+    triggerManualMode();
   }
 
   @override
@@ -104,13 +121,30 @@ class _ControlScreenState extends State<ControlScreen> {
   }
 }
 
+//Stateful widget that controls fog
+//Makes get requests respective to the buttons
+//Consists of a toggle bar and a switch
+
 class FogControl extends StatefulWidget {
   @override
   State<FogControl> createState() => _FogControlState();
 }
 
 class _FogControlState extends State<FogControl> {
-  bool _lights = false;
+  bool fogState = false;
+
+  void fogFetch(int index) async {
+    String url = 'http://192.168.4.1/$index';
+
+    try {
+      Response fogResponse =
+          await get(Uri.parse(url)).timeout(Duration(seconds: 3));
+      print('Response from ESP : ${fogResponse.body}');
+    } on TimeoutException catch (_) {
+      print('Could not communicate');
+    }
+  }
+
   List<bool> isSelected = [false, false, false, false, false, false, false];
   @override
   Widget build(BuildContext context) {
@@ -176,6 +210,8 @@ class _FogControlState extends State<FogControl> {
                 isSelected: isSelected,
                 onPressed: (int index) {
                   setState(() {
+                    fogFetch(index);
+                    debugPrint('Fog fetch func called');
                     debugPrint('$index');
                     for (int i = 0; i < isSelected.length; i++) {
                       isSelected[i] = i == index;
@@ -202,10 +238,11 @@ class _FogControlState extends State<FogControl> {
               style: themeData.textTheme.bodyText2,
             ),
             contentPadding: EdgeInsets.symmetric(horizontal: 70),
-            value: _lights,
+            value: fogState,
             onChanged: (bool value) {
               setState(() {
-                _lights = value;
+                fogState = value;
+                fogState ? fogFetch(20) : fogFetch(40);
               });
             },
             secondary: Image.asset('assets/images/mist.png')),
@@ -214,23 +251,73 @@ class _FogControlState extends State<FogControl> {
   }
 }
 
-class FogCycles extends StatelessWidget {
-  const FogCycles({super.key, required this.text});
+class SpinControl extends StatefulWidget {
+  @override
+  State<SpinControl> createState() => _SpinControlState();
+}
 
-  final String? text;
+class _SpinControlState extends State<SpinControl> {
+  static List<bool> buttonsSelected = [true, false, false];
+
+  void getRotation(int index) async {
+    try {
+      Response response = await get(Uri.parse('http://192.168.4.1/spin/$index'))
+          .timeout(Duration(seconds: 3));
+      debugPrint('ESP says : $response');
+    } on TimeoutException catch (_) {
+      debugPrint('Connection Timeout');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Color.fromARGB(255, 8, 8, 8).withAlpha(25)),
-      margin: const EdgeInsets.only(left: 25),
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Text(
-        text!,
-        style: themeData.textTheme.headline5,
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text('Rotational Control', style: themeData.textTheme.headline5),
+          ToggleButtons(
+              borderRadius: BorderRadius.circular(12),
+              fillColor: Color.fromARGB(255, 211, 211, 211),
+              color: brandBlack,
+              selectedColor: brandWhite,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 10),
+                    child: Image.asset(
+                      'assets/images/rotateAnticlockwise.png',
+                      width: 32,
+                    )),
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 10),
+                    child: Image.asset(
+                      'assets/images/stop-button.png',
+                      width: 32,
+                    )),
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 10),
+                    child: Image.asset(
+                      'assets/images/rotateClockwise.png',
+                      width: 32,
+                    )),
+              ],
+              isSelected: buttonsSelected,
+              onPressed: (int index) {
+                setState(() {
+                  getRotation(index);
+                  debugPrint('Fog fetch func called');
+                  debugPrint('$index');
+                  for (int i = 0; i < buttonsSelected.length; i++) {
+                    buttonsSelected[i] = i == index;
+                  }
+                  ControlScreen();
+                });
+              })
+        ],
       ),
     );
   }

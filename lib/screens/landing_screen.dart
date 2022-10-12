@@ -29,7 +29,7 @@ class _LandingScreenState extends State<LandingScreen> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const ControlScreen(),
+              builder: (context) => ControlScreen(), 
             ));
       }
     } on TimeoutException catch (_) {
@@ -154,7 +154,7 @@ class _LandingScreenState extends State<LandingScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ControlScreen()));
+                          builder: (context) =>  ControlScreen()));
                 },
                 style: TextButton.styleFrom(
                     foregroundColor: Colors.white,
