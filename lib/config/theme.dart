@@ -1,0 +1,84 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+
+const textColor = Color(0xff272D2D);
+double screenWidth = window.physicalSize.width;
+
+var myAppTheme = ThemeData(
+    colorScheme: const ColorScheme(
+    primary: Color.fromARGB(255, 45, 51, 51),
+    secondary: Color.fromARGB(255, 162, 164, 170),
+    error: Color(0xb71c1cff),
+    surface: Color.fromRGBO(255, 255, 255, 1.0),
+    onPrimary: Color.fromRGBO(255, 255, 255, 1.0),
+    background: Color.fromRGBO(198, 218, 231, 1.0),
+    onSecondary: Color.fromRGBO(255, 255, 255, 1.0),
+    onError: Color.fromRGBO(255, 255, 255, 1.0),
+    brightness: Brightness.light,
+    onBackground: Color(0x000000FF),
+    onSurface: Color(0x000000FF),
+        ),
+    textTheme: screenWidth < 400 ? textThemeSmall : textThemeDefault,
+    fontFamily: 'Poppins'
+);
+
+
+
+const TextTheme textThemeDefault = TextTheme(
+  headline1:
+      TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 26),
+  headline2:
+      TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 22),
+  headline3:
+      TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 20),
+  headline4:
+      TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 16),
+  headline5:
+      TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 14),
+  headline6:
+      TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 12),
+  bodyText1: TextStyle(
+      color: textColor,
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      height: 1.5),
+  bodyText2: TextStyle(
+      color: textColor,
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      height: 1.5),
+  subtitle1:
+      TextStyle(color: textColor, fontWeight: FontWeight.w400, fontSize: 12),
+  subtitle2:
+      TextStyle(color: textColor, fontWeight: FontWeight.w400, fontSize: 12),
+);
+
+const TextTheme textThemeSmall = TextTheme(
+  headline1:
+      TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 22),
+  headline2:
+      TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 20),
+  headline3:
+      TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 18),
+  headline4:
+      TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 16),
+  headline5:
+      TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 14),
+  headline6:
+      TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 10),
+  bodyText1: TextStyle(
+      color: textColor,
+      fontWeight: FontWeight.w400,
+      fontSize: 12,
+      height: 1.5),
+  bodyText2: TextStyle(
+      color: textColor,
+      fontWeight: FontWeight.w400,
+      fontSize: 12,
+      height: 1.5),
+  subtitle1:
+      TextStyle(color: textColor, fontWeight: FontWeight.w400, fontSize: 10),
+  subtitle2:
+      TextStyle(color: textColor, fontWeight: FontWeight.w400, fontSize: 10),
+);

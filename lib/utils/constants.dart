@@ -1,6 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
-const brandGreen = Color(0xff23ce6b);
+double screenWidth = window.physicalSize.width;
+
+const brandGreen = Color(0xFF23CE6B);
 const brandBlack = Color(0xff272D2D);
 const brandWhite = Color(0xffEEEEEE);
 const brandGrey = Color(0xffd2d5dd);

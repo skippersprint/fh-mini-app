@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:fh_mini_app/screens/control_screen.dart';
 import 'package:fh_mini_app/screens/help_guide.dart';
+import 'package:fh_mini_app/screens/home_screen.dart';
 import 'package:fh_mini_app/utils/constants.dart';
 import 'package:fh_mini_app/utils/widget_functions.dart';
 import 'package:flutter/gestures.dart';
@@ -21,6 +21,10 @@ class _LandingScreenState extends State<LandingScreen> {
   final url = 'http://192.168.4.1/LED';
   bool? hasLoaded = false;
 
+  late Image image1;
+  late Image image2;
+  late Image image3;
+
   void fetchData() async {
     await Future.delayed(Duration(seconds: 2));
     try {
@@ -29,7 +33,7 @@ class _LandingScreenState extends State<LandingScreen> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => ControlScreen(), 
+              builder: (context) => HomePage(),
             ));
       }
     } on TimeoutException catch (_) {
@@ -48,7 +52,17 @@ class _LandingScreenState extends State<LandingScreen> {
   void initState() {
     super.initState();
     print('init state function ran');
+    image1 = Image.asset('assets/images/0.gif');
+    image2 = Image.asset('assets/images/1.png');
+    image3 = Image.asset('assets/images/2.gif');
     fetchData();
+  }
+
+  @override
+  void didChangeDependencies() {
+    precacheImage(image1.image, context);
+    precacheImage(image2.image, context);
+    precacheImage(image3.image, context);
   }
 
   @override
@@ -126,8 +140,7 @@ class _LandingScreenState extends State<LandingScreen> {
                   children: [
                     const WidgetSpan(
                         child: Icon(Icons.lightbulb_outline_rounded),
-                        alignment: PlaceholderAlignment.middle
-                        ),
+                        alignment: PlaceholderAlignment.middle),
                     const TextSpan(text: 'View '),
                     TextSpan(
                         text: 'help guide',
@@ -151,10 +164,8 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>  ControlScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage()));
                 },
                 style: TextButton.styleFrom(
                     foregroundColor: Colors.white,
