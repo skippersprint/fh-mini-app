@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../../utils/widget_functions.dart';
-import 'components/pod_view.dart';
+import 'pod_view.dart';
 import 'header.dart';
 import 'spin_panel.dart';
 

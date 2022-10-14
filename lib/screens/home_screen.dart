@@ -1,14 +1,17 @@
 import 'dart:async';
 
-import 'package:fh_mini_app/ui/dashboard/fog_panel.dart';
-import 'package:fh_mini_app/ui/dashboard/produce_panel.dart';
-import 'package:fh_mini_app/ui/dashboard/spin_panel.dart';
+import 'package:fh_mini_app/ui/components/fog_panel.dart';
+import 'package:fh_mini_app/ui/components/produce_panel.dart';
+import 'package:fh_mini_app/ui/components/spin_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart';
 
-import '../ui/dashboard/lighting_panel.dart';
+import '../ui/components/fog_panel.dart';
+import '../ui/components/lighting_panel.dart';
+import '../ui/components/spin_panel.dart';
+import '../ui/components/lighting_panel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

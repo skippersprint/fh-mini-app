@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:fh_mini_app/ui/dashboard/components/pod_view.dart';
-import 'package:fh_mini_app/ui/dashboard/header.dart';
+import 'package:fh_mini_app/ui/components/pod_view.dart';
+import 'package:fh_mini_app/ui/components/header.dart';
 import 'package:fh_mini_app/utils/widget_functions.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,6 @@ import 'package:http/http.dart';
 import '../../utils/constants.dart';
 import 'spin_panel.dart';
 
-
 class FogPanel extends StatefulWidget {
   const FogPanel({super.key});
 
@@ -20,7 +19,7 @@ class FogPanel extends StatefulWidget {
 }
 
 class _FogPanelState extends State<FogPanel> {
-   bool fogState = false;
+  bool fogState = false;
 
   void fogFetch(int index) async {
     String url = 'http://192.168.4.1/$index';
@@ -34,7 +33,7 @@ class _FogPanelState extends State<FogPanel> {
     }
   }
 
-    List<bool> isSelected = [false, false, false, false, false, false, false];
+  List<bool> isSelected = [true, false, false, false, false, false, false];
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
@@ -48,12 +47,9 @@ class _FogPanelState extends State<FogPanel> {
           size: size,
           isSpin: spinType,
         ),
-         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Text(
-            'Fog Cycles',
-            style: themeData.textTheme.headline4,
-          ),
+        Text(
+          'Fog Cycles',
+          style: themeData.textTheme.headline4,
         ),
         addVerticalSpace(30),
         Container(
@@ -116,24 +112,14 @@ class _FogPanelState extends State<FogPanel> {
                 }),
           ),
         ),
-        addVerticalSpace(30),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/glass-of-water.png',
-              width: 40,
-            ),
-            Text('Water level')
-          ],
-        ),
-        addVerticalSpace(30),
+        addVerticalSpace(50),
+       
         SwitchListTile(
             title: Text(
               'Make it rain',
               style: themeData.textTheme.bodyText2,
             ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 70),
+            contentPadding: EdgeInsets.symmetric(horizontal: 90),
             value: fogState,
             onChanged: (bool value) {
               setState(() {
@@ -141,7 +127,10 @@ class _FogPanelState extends State<FogPanel> {
                 fogState ? fogFetch(20) : fogFetch(40);
               });
             },
-            secondary: Image.asset('assets/images/mist.png')),
+            secondary: Image.asset(
+              'assets/images/rainy.png',
+              width: 30,
+            )),
       ],
     );
   }
