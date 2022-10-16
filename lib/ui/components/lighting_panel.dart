@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:fh_mini_app/ui/components/colors_and_effects.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 
 import '../../utils/widget_functions.dart';
 import 'pod_view.dart';
@@ -17,8 +14,6 @@ class LightingPanel extends StatefulWidget {
 }
 
 class _LightingPanelState extends State<LightingPanel> {
-
-
   Color color = Color.fromARGB(255, 255, 0, 200);
   @override
   Widget build(BuildContext context) {
@@ -26,16 +21,19 @@ class _LightingPanelState extends State<LightingPanel> {
     final Size size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         addVerticalSpace(25),
         Header(),
         addVerticalSpace(25),
-        PodView(
-          size: size,
-          isSpin: spinType,
+        Center(
+          child: PodView(
+            size: size,
+            isSpin: spinType,
+          ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.only(left: 25, top: 10),
           child: Text(
             'Color & Effects',
             style: themeData.textTheme.headline4,

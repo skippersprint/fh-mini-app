@@ -1,14 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart';
 
 import '../../utils/widget_functions.dart';
 import 'pod_view.dart';
 import 'header.dart';
-import 'fog_panel.dart';
 
 bool podSpin = true;
 int spinType = 2;
@@ -50,7 +47,7 @@ class _SpinPanelState extends State<SpinPanel> {
         //addVerticalSpace(20),
         Expanded(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal:25),
+            padding: const EdgeInsets.only(left: 25, top: 10),
             width: size.width,
             //color: Colors.red,
             child: Column(
@@ -65,8 +62,7 @@ class _SpinPanelState extends State<SpinPanel> {
                   child: ToggleButtons(
                       borderRadius: BorderRadius.circular(12),
                       fillColor: Color.fromARGB(255, 211, 211, 211),
-                      color: Theme.of(context).colorScheme.secondary,
-                      selectedColor: Theme.of(context).colorScheme.secondary,
+                      highlightColor: Theme.of(context).colorScheme.secondary,
                       children: [
                         Padding(
                             padding: const EdgeInsets.symmetric(

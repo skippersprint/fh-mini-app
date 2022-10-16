@@ -32,7 +32,7 @@ class _ProducePanelState extends State<ProducePanel> {
         ),
         Expanded(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 25),
+            padding: const EdgeInsets.only(left: 25, top: 10),
             width: size.width,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -14,7 +14,7 @@ class _PodViewState extends State<PodView> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: widget.size.width,
+        height: widget.size.height * 0.38,
         child: widget.isSpin == 1
             ? Image.asset('assets/images/${widget.isSpin}.png')
             : Image.asset('assets/images/${widget.isSpin}.gif'));

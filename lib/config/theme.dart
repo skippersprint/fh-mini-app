@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 const textColor = Color.fromARGB(255, 61, 61, 61);
-double screenWidth = window.physicalSize.width;
+double screenHeight = window.physicalSize.height;
 
 var myAppTheme = ThemeData(
     colorScheme: const ColorScheme(
@@ -19,7 +19,7 @@ var myAppTheme = ThemeData(
       onBackground: Color(0x000000FF),
       onSurface: Color(0x000000FF),
     ),
-    textTheme: screenWidth < 400 ? textThemeSmall : textThemeDefault,
+    textTheme: screenHeight < 1000 ? textThemeSmall : textThemeDefault,
     fontFamily: 'Poppins');
 
 const TextTheme textThemeDefault = TextTheme(

@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
 
   int _currentIndex = 0;
   String _pageTitle = "home";
-  Widget _currentWidget = LightingPanel();
+  Widget _currentWidget = FogPanel();
 
   void loadScreen() {
     switch (_currentIndex) {
