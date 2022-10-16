@@ -1,13 +1,9 @@
 import 'dart:async';
 
-import 'package:fh_mini_app/main.dart';
 import 'package:fh_mini_app/ui/components/pod_view.dart';
 import 'package:fh_mini_app/ui/components/header.dart';
 import 'package:fh_mini_app/utils/widget_functions.dart';
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart';
 import '../../utils/constants.dart';
 import 'spin_panel.dart';
@@ -51,92 +47,93 @@ class _FogPanelState extends State<FogPanel> {
         Expanded(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 25),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-            'Fog Cycles',
-            style: themeData.textTheme.headline4,
-          ),
-          addVerticalSpace(30),
-          Container(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              child: ToggleButtons(
-                  borderRadius: BorderRadius.circular(12),
-                  fillColor: brandBlack,
-                  color: brandBlack,
-                  selectedColor: brandWhite,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 10),
-                      child: Text('10 s'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 10),
-                      child: Text('4 min'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 10),
-                      child: Text('8 min'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 10),
-                      child: Text('10 min'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 10),
-                      child: Text('12 min'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 10),
-                      child: Text('14 min'),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 10),
-                      child: Text('16 min'),
-                    ),
-                  ],
-                  isSelected: isSelected,
-                  onPressed: (int index) {
-                    setState(() {
-                      fogFetch(index);
-                      debugPrint('Fog fetch func called');
-                      debugPrint('$index');
-                      for (int i = 0; i < isSelected.length; i++) {
-                        isSelected[i] = i == index;
-                      }
-                    });
-                  }),
-            ),
-          ),
-          addVerticalSpace(50),
-               
-          SwitchListTile(
-              title: Text(
-                'Make it rain',
-                style: themeData.textTheme.bodyText2,
+                'Fog Cycles',
+                style: themeData.textTheme.headline4,
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 70),
-              value: fogState,
-              onChanged: (bool value) {
-                setState(() {
-                  fogState = value;
-                  fogState ? fogFetch(20) : fogFetch(40);
-                });
-              },
-              secondary: Image.asset(
-                'assets/images/rainy.png',
-                width: 30,
-              )),
+              addVerticalSpace(30),
+              Container(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  physics: BouncingScrollPhysics(),
+                  child: ToggleButtons(
+                      borderRadius: BorderRadius.circular(12),
+                      fillColor: Theme.of(context).colorScheme.primary,
+                      color: brandBlack,
+                      selectedColor: brandWhite,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          child: Text('10 s'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          child: Text('4 min'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          child: Text('8 min'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          child: Text('10 min'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          child: Text('12 min'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          child: Text('14 min'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          child: Text('16 min'),
+                        ),
+                      ],
+                      isSelected: isSelected,
+                      onPressed: (int index) {
+                        setState(() {
+                          fogFetch(index);
+                          debugPrint('Fog fetch func called');
+                          debugPrint('$index');
+                          for (int i = 0; i < isSelected.length; i++) {
+                            isSelected[i] = i == index;
+                          }
+                        });
+                      }),
+                ),
+              ),
+              addVerticalSpace(50),
+              SwitchListTile(
+                  title: Text(
+                    'Make it rain',
+                    style: themeData.textTheme.bodyText2,
+                  ),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 70),
+                  value: fogState,
+                  onChanged: (bool value) {
+                    setState(() {
+                      fogState = value;
+                      fogState ? fogFetch(20) : fogFetch(40);
+                    });
+                  },
+                  secondary: fogState ? Image.asset(
+                    'assets/images/rainyOn.png',
+                    width: 30,
+                  ) : Image.asset(
+                    'assets/images/rainy.png',
+                    width: 30,
+                  )),
             ]),
           ),
         )

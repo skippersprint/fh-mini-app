@@ -24,6 +24,7 @@ class _LandingScreenState extends State<LandingScreen> {
   late Image image1;
   late Image image2;
   late Image image3;
+  late Image image4;
 
   void fetchData() async {
     await Future.delayed(Duration(seconds: 2));
@@ -55,14 +56,17 @@ class _LandingScreenState extends State<LandingScreen> {
     image1 = Image.asset('assets/images/0.gif');
     image2 = Image.asset('assets/images/1.png');
     image3 = Image.asset('assets/images/2.gif');
+    image4 = Image.asset('assets/images/rainyOn.png');
     fetchData();
   }
 
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     precacheImage(image1.image, context);
     precacheImage(image2.image, context);
     precacheImage(image3.image, context);
+    precacheImage(image4.image, context);
   }
 
   @override
@@ -130,40 +134,29 @@ class _LandingScreenState extends State<LandingScreen> {
         barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(
-              "Couldn't locate pod :/",
-              style: themeData.textTheme.headline4,
-            ),
             content: RichText(
               text: TextSpan(
                   style: const TextStyle(color: brandBlack),
                   children: [
-                    const WidgetSpan(
-                        child: Icon(Icons.lightbulb_outline_rounded),
-                        alignment: PlaceholderAlignment.middle),
-                    const TextSpan(text: 'View '),
+                    const TextSpan(
+                        text:
+                            'Connection could not be established to Mini. For further information on troubleshooting practices refer to our '),
                     TextSpan(
                         text: 'help guide',
                         style: const TextStyle(
                             color: Color.fromARGB(255, 33, 82, 243),
                             decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w600),
                         recognizer: gestureRecognizer),
-                    const TextSpan(text: ' to troubleshoot')
                   ]),
             ),
             actions: [
               TextButton(
-                onPressed: null,
-                style: TextButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 54, 54, 54)),
-                child: const Text(
-                  'Retry',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              TextButton(
                 onPressed: () {
+                  int count = 0;
+                  Navigator.popUntil(context, (route) {
+                    return count++ == 2;
+                  });
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => HomePage()));
                 },

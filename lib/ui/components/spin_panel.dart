@@ -70,21 +70,21 @@ class _SpinPanelState extends State<SpinPanel> {
                       children: [
                         Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 10),
+                                horizontal: 28, vertical: 6),
                             child: Image.asset(
                               'assets/images/rotateAnticlockwise.png',
                               width: 32,
                             )),
                         Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 10),
+                                horizontal: 28, vertical: 6),
                             child: Image.asset(
                               'assets/images/stop-button.png',
                               width: 32,
                             )),
                         Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 10),
+                                horizontal: 28, vertical: 6),
                             child: Image.asset(
                               'assets/images/rotateClockwise.png',
                               width: 32,

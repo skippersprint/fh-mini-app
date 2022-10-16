@@ -4,13 +4,8 @@ import 'package:fh_mini_app/ui/components/fog_panel.dart';
 import 'package:fh_mini_app/ui/components/produce_panel.dart';
 import 'package:fh_mini_app/ui/components/spin_panel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart';
 
-import '../ui/components/fog_panel.dart';
-import '../ui/components/lighting_panel.dart';
-import '../ui/components/spin_panel.dart';
 import '../ui/components/lighting_panel.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   void triggerManualMode() async {
     try {
       Response resp = await get(Uri.parse('http://192.168.4.1/manualMode'))
-          .timeout(Duration(seconds: 3));
+          .timeout(Duration(seconds: 30));
       debugPrint('In manual mode now (limited)');
     } on TimeoutException catch (_) {
       debugPrint('Connection Timeout');
@@ -46,13 +41,14 @@ class _HomePageState extends State<HomePage> {
     switch (_currentIndex) {
       case 0:
         return setState(() {
-          _pageTitle = 'LightingDash';
-          _currentWidget = LightingPanel();
+         _pageTitle = 'FogPanel';
+          _currentWidget = FogPanel();
         });
       case 1:
         return setState(() {
-          _pageTitle = 'FogPanel';
-          _currentWidget = FogPanel();
+           _pageTitle = 'LightingDash';
+          _currentWidget = LightingPanel();
+          
         });
       case 2:
         return setState(() {
@@ -74,8 +70,8 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.lightbulb), label: 'Lights'),
           BottomNavigationBarItem(icon: Icon(Icons.water_drop), label: 'Fog'),
+          BottomNavigationBarItem(icon: Icon(Icons.lightbulb), label: 'Lights'),
           BottomNavigationBarItem(
             icon: Icon(Icons.change_circle),
             label: 'Spin',

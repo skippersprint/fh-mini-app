@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:fh_mini_app/ui/components/hue_ring_picker.dart';
-import 'package:fh_mini_app/ui/components/list_wheel.dart';
+import 'package:fh_mini_app/ui/components/colors_and_effects.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -18,19 +17,15 @@ class LightingPanel extends StatefulWidget {
 }
 
 class _LightingPanelState extends State<LightingPanel> {
-  void sendHex(String hexString) async {
-    try {
-      await get(Uri.parse('http://192.168.4.1/hex?hexCode=${hexString}'));
-    } on TimeoutException catch (_) {
-      debugPrint('Connection Timeout hex');
-    }
-  }
+
 
   Color color = Color.fromARGB(255, 255, 0, 200);
   @override
   Widget build(BuildContext context) {
+    final ThemeData themeData = Theme.of(context);
     final Size size = MediaQuery.of(context).size;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         addVerticalSpace(25),
         Header(),
@@ -39,45 +34,23 @@ class _LightingPanelState extends State<LightingPanel> {
           size: size,
           isSpin: spinType,
         ),
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 25),
-            child: Flex(direction: Axis.horizontal, children: [
-              Expanded(flex: 1, child: Container(child: EffectsScroll())),
-              Expanded(
-                flex: 3,
-                child: Container(
-                  //color: Colors.cyan,
-                  child: HueRingPickerM(
-                      hueRingStrokeWidth: 30,
-                      pickerAreaBorderRadius: BorderRadius.circular(20),
-                      colorPickerHeight: size.height * 0.15,
-                      displayThumbColor: false,
-                      enableAlpha: true,
-                      pickerColor: color,
-                      onColorChanged: (color) {
-                        this.color = color;
-                      }),
-                ),
-              ),
-            ]),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: Text(
+            'Color & Effects',
+            style: themeData.textTheme.headline4,
           ),
         ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          margin: EdgeInsets.only(bottom: 12),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: Color.fromARGB(255, 59, 59, 59))),
-          child: TextButton(
-            child: Text('Update'),
-            onPressed: (() {
-              String hexString = color.toString();
-              debugPrint('$color');
-              sendHex(hexString);
-            }),
-          ),
-        ),
+        ColorsAndEffects(
+            hueRingStrokeWidth: 30,
+            pickerAreaBorderRadius: BorderRadius.circular(20),
+            colorPickerHeight: size.height * 0.15,
+            displayThumbColor: false,
+            enableAlpha: true,
+            pickerColor: color,
+            onColorChanged: (color) {
+              this.color = color;
+            })
       ],
     );
   }
