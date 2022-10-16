@@ -3,6 +3,7 @@ import 'package:fh_mini_app/config/theme.dart';
 import 'package:fh_mini_app/ui/components/hue_ring_picker.dart';
 import 'package:fh_mini_app/screens/home_screen.dart';
 import 'package:fh_mini_app/screens/landing_screen.dart';
+import 'package:fh_mini_app/ui/components/list_wheel.dart';
 import 'package:fh_mini_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,6 @@ class MyApp extends StatelessWidget {
         theme: myAppTheme,
         //darkTheme: ThemeData.dark(),
 
-        home: LandingScreen());
+        home: HomePage());
   }
 }

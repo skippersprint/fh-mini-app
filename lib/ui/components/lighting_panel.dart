@@ -1,11 +1,8 @@
 import 'dart:async';
 
 import 'package:fh_mini_app/ui/components/hue_ring_picker.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:fh_mini_app/ui/components/list_wheel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:http/http.dart';
 
 import '../../utils/widget_functions.dart';
@@ -42,23 +39,44 @@ class _LightingPanelState extends State<LightingPanel> {
           size: size,
           isSpin: spinType,
         ),
-        HueRingPickerM(
-            hueRingStrokeWidth: 30,
-            pickerAreaBorderRadius: BorderRadius.circular(20),
-            colorPickerHeight: 140,
-            displayThumbColor: false,
-            enableAlpha: true,
-            pickerColor: color,
-            onColorChanged: (color) {
-              this.color = color;
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 25),
+            child: Flex(direction: Axis.horizontal, children: [
+              Expanded(flex: 1, child: Container(child: EffectsScroll())),
+              Expanded(
+                flex: 3,
+                child: Container(
+                  //color: Colors.cyan,
+                  child: HueRingPickerM(
+                      hueRingStrokeWidth: 30,
+                      pickerAreaBorderRadius: BorderRadius.circular(20),
+                      colorPickerHeight: size.height * 0.15,
+                      displayThumbColor: false,
+                      enableAlpha: true,
+                      pickerColor: color,
+                      onColorChanged: (color) {
+                        this.color = color;
+                      }),
+                ),
+              ),
+            ]),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          margin: EdgeInsets.only(bottom: 12),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: Color.fromARGB(255, 59, 59, 59))),
+          child: TextButton(
+            child: Text('Update'),
+            onPressed: (() {
+              String hexString = color.toString();
+              debugPrint('$color');
+              sendHex(hexString);
             }),
-        TextButton(
-          child: Text('Set Color'),
-          onPressed: (() {
-            String hexString = color.toString();
-            debugPrint('$color');
-            sendHex(hexString);
-          }),
+          ),
         ),
       ],
     );
