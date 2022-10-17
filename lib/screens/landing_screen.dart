@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:fh_mini_app/config/theme.dart';
 import 'package:fh_mini_app/screens/help_guide.dart';
 import 'package:fh_mini_app/screens/home_screen.dart';
 import 'package:fh_mini_app/utils/constants.dart';
@@ -19,6 +20,7 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
   final url = 'http://192.168.4.1/LED';
+
   bool? hasLoaded = false;
 
   late Image image1;
@@ -98,10 +100,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     style: themeData.textTheme.headline4,
                   ),
                   addVerticalSpace(30),
-                  Text(
-                    'Connecting to your pod',
-                    style: themeData.textTheme.bodySmall,
-                  ),
+                  PodStatus(themeData: themeData, hasLoaded: hasLoaded!,),
                   addVerticalSpace(10),
                   spinkit(hasLoaded),
                 ],
@@ -123,15 +122,13 @@ class _LandingScreenState extends State<LandingScreen> {
   }
 
   Future<dynamic> connectionTimeout(BuildContext context) {
-    final themeData = Theme.of(context);
     final TapGestureRecognizer gestureRecognizer = TapGestureRecognizer()
       ..onTap = () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const HelpGuide()));
+        Navigator.of(context).push(_createRoute(HelpGuide()));
       };
     return showDialog(
         context: context,
-        barrierDismissible: true,
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
             content: RichText(
@@ -153,16 +150,10 @@ class _LandingScreenState extends State<LandingScreen> {
             actions: [
               TextButton(
                 onPressed: () {
-                  int count = 0;
-                  Navigator.popUntil(context, (route) {
-                    return count++ == 2;
-                  });
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
+                  Navigator.of(context).push(_createRoute(HomePage()));
                 },
                 style: TextButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: const Color.fromARGB(255, 54, 54, 54)),
+                    backgroundColor: myAppTheme.colorScheme.primary),
                 child: const Text('Enter anyway',
                     style: TextStyle(color: Colors.white)),
               ),
@@ -170,4 +161,42 @@ class _LandingScreenState extends State<LandingScreen> {
           );
         });
   }
+}
+
+class PodStatus extends StatelessWidget {
+  const PodStatus({Key? key, required this.themeData, required this.hasLoaded})
+      : super(key: key);
+
+  final ThemeData themeData;
+  final bool hasLoaded;
+
+  @override
+  Widget build(BuildContext context) {
+    return hasLoaded ? const Text("couldn't connect :/",
+            style: TextStyle(fontSize: 12, color: Colors.red)) :Text(
+      'Connecting to your pod',
+      style: themeData.textTheme.bodySmall,
+    );
+  }
+}
+
+Route _createRoute(var screenName) {
+  return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => screenName,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        final tween = Tween(begin: begin, end: end);
+        final curvedAnimation = CurvedAnimation(
+          parent: animation,
+          curve: curve,
+        );
+
+        return SlideTransition(
+          position: tween.animate(curvedAnimation),
+          child: child,
+        );
+      });
 }

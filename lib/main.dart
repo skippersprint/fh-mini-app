@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:fh_mini_app/config/theme.dart';
 import 'package:fh_mini_app/screens/landing_screen.dart';
 import 'package:flutter/material.dart';
