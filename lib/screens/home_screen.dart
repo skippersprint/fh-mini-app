@@ -5,6 +5,7 @@ import 'package:fh_mini_app/ui/components/produce_panel.dart';
 import 'package:fh_mini_app/ui/components/spin_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ui/components/lighting_panel.dart';
 
@@ -16,6 +17,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+
   void triggerManualMode() async {
     try {
       Response resp = await get(Uri.parse('http://192.168.4.1/manualMode'))
@@ -28,12 +31,24 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<void> setBNB(int tappedIndex) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt('BNB', tappedIndex);
+  }
+
+  Future<void> getBNB() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _currentIndex = prefs.getInt('BNB') ?? 0;
+    });
+  }  
+
   void initState() {
     super.initState();
+    getBNB();
     triggerManualMode();
   }
 
-  int _currentIndex = 0;
   String _pageTitle = "home";
   Widget _currentWidget = FogPanel();
 
@@ -41,14 +56,13 @@ class _HomePageState extends State<HomePage> {
     switch (_currentIndex) {
       case 0:
         return setState(() {
-         _pageTitle = 'FogPanel';
+          _pageTitle = 'FogPanel';
           _currentWidget = FogPanel();
         });
       case 1:
         return setState(() {
-           _pageTitle = 'LightingDash';
+          _pageTitle = 'LightingDash';
           _currentWidget = LightingPanel();
-          
         });
       case 2:
         return setState(() {
@@ -80,6 +94,7 @@ class _HomePageState extends State<HomePage> {
         ],
         currentIndex: _currentIndex,
         onTap: (int tappedIndex) {
+          setBNB(tappedIndex);
           setState(() {
             _currentIndex = tappedIndex;
           });

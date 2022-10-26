@@ -31,7 +31,7 @@ class _LandingScreenState extends State<LandingScreen> {
   void fetchData() async {
     await Future.delayed(Duration(seconds: 2));
     try {
-      await get(Uri.parse(url)).timeout(const Duration(seconds: 1));
+      await get(Uri.parse(url)).timeout(const Duration(seconds: 2));
       if (mounted) {
         Navigator.pushReplacement(
             context,
@@ -46,6 +46,9 @@ class _LandingScreenState extends State<LandingScreen> {
       });
     } on SocketException catch (_) {
       debugPrint("Other exception occured");
+      setState(() {
+        connectionTimeout(context);
+      });
     } finally {
       hasLoaded = true;
     }
@@ -200,3 +203,4 @@ Route _createRoute(var screenName) {
         );
       });
 }
+
