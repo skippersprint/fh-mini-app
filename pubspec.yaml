@@ -41,6 +41,8 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   fluttertoast: ^8.1.1
   shared_preferences: ^2.0.15
+  firebase_core: ^2.1.1
+  firebase_database: ^10.0.3
 
 
 dev_dependencies:

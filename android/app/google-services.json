@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "663864362031",
+    "project_id": "farmhouse-1851",
+    "storage_bucket": "farmhouse-1851.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663864362031:android:81ebb8fd7806ebebcb32da",
+        "android_client_info": {
+          "package_name": "com.example.fh_mini_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663864362031-f19mm2f3ras6vgp0888c412gmvl30ccq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ7qgbciSzTB-x5GhNF38RztmX8-Atkko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663864362031-f19mm2f3ras6vgp0888c412gmvl30ccq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

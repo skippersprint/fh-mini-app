@@ -31,6 +31,8 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  //get and set bottom navigation index number.
+
   Future<void> setBNB(int tappedIndex) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setInt('BNB', tappedIndex);
