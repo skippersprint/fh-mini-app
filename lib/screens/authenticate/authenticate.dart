@@ -1,3 +1,4 @@
+import 'package:fh_mini_app/screens/authenticate/sign_in.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -11,6 +12,8 @@ class Authenticate extends StatefulWidget {
 class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: SignIn(),
+    );
   }
 } 
