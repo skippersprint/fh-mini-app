@@ -1,5 +1,6 @@
 import 'package:fh_mini_app/config/theme.dart';
 import 'package:fh_mini_app/screens/landing_screen.dart';
+import 'package:fh_mini_app/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
               debugPrint('Error occured with firebase app');
               return Text('Error with FBI');
             } else if (snapshot.hasData) {
-              return LandingScreen();
+              return Wrapper();
             } else {
               return Center(
                 child: CircularProgressIndicator(),
