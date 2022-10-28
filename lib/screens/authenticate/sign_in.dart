@@ -30,7 +30,7 @@ class _SignInState extends State<SignIn> {
               debugPrint('Error signing in');
             } else {
               debugPrint('Signed in anonymously');
-              debugPrint(result.uid);
+              
             }
           },
         ),

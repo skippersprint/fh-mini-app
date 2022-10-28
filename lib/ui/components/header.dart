@@ -1,3 +1,4 @@
+import 'package:fh_mini_app/services/auth.dart';
 import 'package:fh_mini_app/utils/widget_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key});
+  Header({super.key});
+
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +36,11 @@ class Header extends StatelessWidget {
           ),
           Column(
             children: [
-              Icon(
-                Icons.account_circle,
-                size: 35,
+              IconButton(
+                icon: Icon(Icons.account_circle),
+                onPressed: () async {
+                  await _auth.signOut();
+                },
               ),
               addVerticalSpace(10)
             ],

@@ -1,8 +1,13 @@
 import 'package:fh_mini_app/config/theme.dart';
 import 'package:fh_mini_app/screens/landing_screen.dart';
 import 'package:fh_mini_app/screens/wrapper.dart';
+import 'package:fh_mini_app/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+
+import 'models/custom_user.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +34,12 @@ class MyApp extends StatelessWidget {
               debugPrint('Error occured with firebase app');
               return Text('Error with FBI');
             } else if (snapshot.hasData) {
-              return Wrapper();
+              return StreamProvider<User?>.value(
+                value: AuthService().userStream, 
+                initialData: null,
+                catchError: null,
+                child: Wrapper()
+                );
             } else {
               return Center(
                 child: CircularProgressIndicator(),

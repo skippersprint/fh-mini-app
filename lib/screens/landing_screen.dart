@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:fh_mini_app/config/theme.dart';
 import 'package:fh_mini_app/screens/help_guide.dart';
 import 'package:fh_mini_app/screens/home_screen.dart';
+import 'package:fh_mini_app/services/auth.dart';
 import 'package:fh_mini_app/utils/constants.dart';
 import 'package:fh_mini_app/utils/widget_functions.dart';
 import 'package:flutter/gestures.dart';
@@ -76,6 +77,7 @@ class _LandingScreenState extends State<LandingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final AuthService _auth = AuthService();    
     final Size size = MediaQuery.of(context).size;
     final ThemeData themeData = Theme.of(context);
     return SafeArea(
@@ -103,9 +105,18 @@ class _LandingScreenState extends State<LandingScreen> {
                     style: themeData.textTheme.headline4,
                   ),
                   addVerticalSpace(30),
-                  PodStatus(themeData: themeData, hasLoaded: hasLoaded!,),
+                  PodStatus(
+                    themeData: themeData,
+                    hasLoaded: hasLoaded!,
+                  ),
                   addVerticalSpace(10),
                   spinkit(hasLoaded),
+                   IconButton(
+                icon: Icon(Icons.account_circle),
+                onPressed: () async {
+                  await _auth.signOut();
+                },
+              ),
                 ],
               ),
             )
@@ -125,6 +136,7 @@ class _LandingScreenState extends State<LandingScreen> {
   }
 
   Future<dynamic> connectionTimeout(BuildContext context) {
+    
     final TapGestureRecognizer gestureRecognizer = TapGestureRecognizer()
       ..onTap = () {
         Navigator.of(context).push(_createRoute(HelpGuide()));
@@ -160,6 +172,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 child: const Text('Enter anyway',
                     style: TextStyle(color: Colors.white)),
               ),
+             
             ],
           );
         });
@@ -175,11 +188,13 @@ class PodStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return hasLoaded ? const Text("couldn't connect :/",
-            style: TextStyle(fontSize: 12, color: Colors.red)) :Text(
-      'Connecting to your pod',
-      style: themeData.textTheme.bodySmall,
-    );
+    return hasLoaded
+        ? const Text("couldn't connect :/",
+            style: TextStyle(fontSize: 12, color: Colors.red))
+        : Text(
+            'Connecting to your pod',
+            style: themeData.textTheme.bodySmall,
+          );
   }
 }
 
@@ -203,4 +218,3 @@ Route _createRoute(var screenName) {
         );
       });
 }
-
