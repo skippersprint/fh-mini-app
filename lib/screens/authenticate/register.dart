@@ -81,7 +81,8 @@ class _RegisterState extends State<Register> {
                         style: TextStyle(color: Colors.white),
                       )),
                       addVerticalSpace(12),
-                      Text(error),
+                      Text(error, 
+                      style: TextStyle(color: Colors.red),),
                   addVerticalSpace(20), 
                   RichText(
                       text: TextSpan(

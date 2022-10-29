@@ -13,6 +13,8 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  // key to keeo track of our form's state
+  final _formKey = GlobalKey<FormState>();
   // instantiate AuthService
   final AuthService _auth = AuthService();
 
@@ -25,6 +27,7 @@ class _SignInState extends State<SignIn> {
   //text field state
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +42,12 @@ class _SignInState extends State<SignIn> {
           body: Container(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
               child: Form(
+                key: _formKey,
                 child: Column(children: [
                   addVerticalSpace(20),
                   TextFormField(
+                    validator: (value) =>
+                        value!.isEmpty ? 'Enter a valid email' : null,
                     onChanged: (val) {
                       setState(() {
                         email = val;
@@ -50,6 +56,8 @@ class _SignInState extends State<SignIn> {
                   ),
                   addVerticalSpace(20),
                   TextFormField(
+                    validator: (value) =>
+                        value!.length < 6 ? 'Enter atleast 6 characters' : null,
                     obscureText: true,
                     onChanged: (val) {
                       setState(() {
@@ -60,13 +68,25 @@ class _SignInState extends State<SignIn> {
                   addVerticalSpace(20),
                   ElevatedButton(
                       onPressed: () async {
-                        debugPrint(email);
-                        debugPrint(password);
+                        if (_formKey.currentState!.validate()) {
+                          debugPrint('Sign in valid');
+                          dynamic result = await _auth
+                              .signInWithEmailAndPassword(email, password);
+                          if (result == null) {
+                            setState(() => error = 'Could not sign with those credentials'
+                            );
+                          }
+                        }
                       },
                       child: Text(
                         'Sign In',
                         style: TextStyle(color: Colors.white),
                       )),
+                  addVerticalSpace(12),
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.red),
+                  ),
                   addVerticalSpace(20),
                   ElevatedButton(
                       onPressed: () async {
