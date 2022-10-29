@@ -13,7 +13,6 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  
   // key to keeo track of our form's state
   final _formKey = GlobalKey<FormState>();
   // instantiate AuthService
@@ -27,6 +26,7 @@ class _RegisterState extends State<Register> {
   //text field state
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,8 @@ class _RegisterState extends State<Register> {
                 child: Column(children: [
                   addVerticalSpace(20),
                   TextFormField(
-                    validator: (value) => value!.isEmpty ? 'Enter a valid email' : null,
+                    validator: (value) =>
+                        value!.isEmpty ? 'Enter a valid email' : null,
                     onChanged: (val) {
                       setState(() {
                         email = val;
@@ -54,7 +55,8 @@ class _RegisterState extends State<Register> {
                   ),
                   addVerticalSpace(20),
                   TextFormField(
-                    validator: (value) => value!.length < 6  ? 'Enter atleast 6 characters' : null,
+                    validator: (value) =>
+                        value!.length < 6 ? 'Enter atleast 6 characters' : null,
                     obscureText: true,
                     onChanged: (val) {
                       setState(() {
@@ -65,16 +67,22 @@ class _RegisterState extends State<Register> {
                   addVerticalSpace(20),
                   ElevatedButton(
                       onPressed: () async {
-                        if(_formKey.currentState!.validate()){
-                          debugPrint(email);
-                        debugPrint(password);
+                        if (_formKey.currentState!.validate()) {
+                          dynamic result = await _auth
+                              .registeredWithEmailAndPassword(email, password);
+                          if (result == null) {
+                            setState(() => error = 'Please supply a valid email'
+                            );
+                          }
                         }
                       },
                       child: Text(
                         'Register',
                         style: TextStyle(color: Colors.white),
                       )),
-                  addVerticalSpace(20),
+                      addVerticalSpace(12),
+                      Text(error),
+                  addVerticalSpace(20), 
                   RichText(
                       text: TextSpan(
                           text: 'Existing memeber? ',

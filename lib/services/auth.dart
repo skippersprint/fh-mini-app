@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-
   //auth change user stream (detects any changes in the authentication of user, constantly)
   // and returns a User obj back, use this to determine which screen to show
   Stream<User?> get userStream {
@@ -27,21 +26,28 @@ class AuthService {
   // sign in with emial and password
 
   // register with email and password
+  Future registeredWithEmailAndPassword(String email, password) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      User? emailUser = result.user;
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
 
   // sign out
   Future signOut() async {
     try {
       debugPrint("trying _auth signout");
       return await _auth.signOut();
-      
-    } 
-    catch (e) {
+    } catch (e) {
       debugPrint("Error with _auth signout");
       debugPrint(e.toString());
       return null;
+    } finally {
+      debugPrint("_auth signout successful");
     }
-    finally {
-        debugPrint("_auth signout successful");
-      }
   }
 }

@@ -68,6 +68,11 @@ class _SignInState extends State<SignIn> {
                         style: TextStyle(color: Colors.white),
                       )),
                   addVerticalSpace(20),
+                  ElevatedButton(
+                      onPressed: () async {
+                        _auth.signInAnon();
+                      },
+                      child: Text('Anon')),
                   RichText(
                       text: TextSpan(
                           text: 'Not a memeber? ',
