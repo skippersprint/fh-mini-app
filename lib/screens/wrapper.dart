@@ -1,4 +1,5 @@
 import 'package:fh_mini_app/screens/authenticate/authenticate.dart';
+import 'package:fh_mini_app/screens/home_screen.dart';
 import 'package:fh_mini_app/screens/landing_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +18,9 @@ class Wrapper extends StatelessWidget {
     //return either landingScreen or authenticate page
     if (user == null) {
       debugPrint("user value null reporting");
-      
       return Authenticate();
     } else {
-      return LandingScreen();
+      return HomePage();
     }
   }
 }

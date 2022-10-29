@@ -5,13 +5,9 @@ import 'package:flutter/material.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  //create user obj based on Firebase user
-  CustomUser _userFromFireBaseUser(User user) {
-    return CustomUser(uid: user.uid);
-  }
 
   //auth change user stream (detects any changes in the authentication of user, constantly)
-  // and returns a User obj back -> converted to a custom User obj, use this to determine which screen to show
+  // and returns a User obj back, use this to determine which screen to show
   Stream<User?> get userStream {
     return _auth.authStateChanges();
   }

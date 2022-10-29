@@ -1,25 +1,27 @@
-import 'package:fh_mini_app/services/auth.dart';
-import 'package:fh_mini_app/utils/widget_functions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key, required this.toggleView});
+import '../../services/auth.dart';
+import '../../utils/widget_functions.dart';
+
+class Register extends StatefulWidget {
+  const Register({super.key, required this.toggleView});
 
   final Function toggleView;
-
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
+  
+  // key to keeo track of our form's state
+  final _formKey = GlobalKey<FormState>();
   // instantiate AuthService
   final AuthService _auth = AuthService();
 
   late TapGestureRecognizer gestureRecognizer = TapGestureRecognizer()
     ..onTap = () {
       widget.toggleView();
-      debugPrint('Register please');
     };
 
   //text field state
@@ -34,14 +36,16 @@ class _SignInState extends State<SignIn> {
           appBar: AppBar(
             backgroundColor: Colors.brown[400],
             elevation: 0.0,
-            title: Text('Sign in to FarmHouse'),
+            title: Text('Register to FarmHouse'),
           ),
           body: Container(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
               child: Form(
+                key: _formKey,
                 child: Column(children: [
                   addVerticalSpace(20),
                   TextFormField(
+                    validator: (value) => value!.isEmpty ? 'Enter a valid email' : null,
                     onChanged: (val) {
                       setState(() {
                         email = val;
@@ -50,6 +54,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   addVerticalSpace(20),
                   TextFormField(
+                    validator: (value) => value!.length < 6  ? 'Enter atleast 6 characters' : null,
                     obscureText: true,
                     onChanged: (val) {
                       setState(() {
@@ -60,22 +65,24 @@ class _SignInState extends State<SignIn> {
                   addVerticalSpace(20),
                   ElevatedButton(
                       onPressed: () async {
-                        debugPrint(email);
+                        if(_formKey.currentState!.validate()){
+                          debugPrint(email);
                         debugPrint(password);
+                        }
                       },
                       child: Text(
-                        'Sign In',
+                        'Register',
                         style: TextStyle(color: Colors.white),
                       )),
                   addVerticalSpace(20),
                   RichText(
                       text: TextSpan(
-                          text: 'Not a memeber? ',
+                          text: 'Existing memeber? ',
                           style:
                               TextStyle(color: Color.fromARGB(255, 95, 95, 95)),
                           children: <TextSpan>[
                         TextSpan(
-                          text: 'Register',
+                          text: 'Sign In',
                           style: const TextStyle(
                               color: Color.fromARGB(255, 34, 34, 34),
                               fontWeight: FontWeight.w600),

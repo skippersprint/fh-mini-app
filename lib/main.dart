@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
                 value: AuthService().userStream, 
                 initialData: null,
                 catchError: null,
-                child: Wrapper()
+                child: Wrapper()  
                 );
             } else {
               return Center(
