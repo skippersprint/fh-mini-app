@@ -1,3 +1,5 @@
+import 'package:fh_mini_app/shared/constants.dart';
+import 'package:fh_mini_app/shared/loading.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +20,8 @@ class _RegisterState extends State<Register> {
   // instantiate AuthService
   final AuthService _auth = AuthService();
 
+  bool loading = false;
+
   late TapGestureRecognizer gestureRecognizer = TapGestureRecognizer()
     ..onTap = () {
       widget.toggleView();
@@ -31,7 +35,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: loading ? Loading() : Scaffold(
           backgroundColor: Colors.brown[100],
           appBar: AppBar(
             backgroundColor: Colors.brown[400],
@@ -45,6 +49,7 @@ class _RegisterState extends State<Register> {
                 child: Column(children: [
                   addVerticalSpace(20),
                   TextFormField(
+                    decoration: textInputDecoration,
                     validator: (value) =>
                         value!.isEmpty ? 'Enter a valid email' : null,
                     onChanged: (val) {
@@ -55,6 +60,8 @@ class _RegisterState extends State<Register> {
                   ),
                   addVerticalSpace(20),
                   TextFormField(
+                    decoration:
+                        textInputDecoration.copyWith(hintText: 'Password'),
                     validator: (value) =>
                         value!.length < 6 ? 'Enter atleast 6 characters' : null,
                     obscureText: true,
@@ -68,11 +75,16 @@ class _RegisterState extends State<Register> {
                   ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            loading = true;
+                          });
                           dynamic result = await _auth
                               .registeredWithEmailAndPassword(email, password);
                           if (result == null) {
-                            setState(() => error = 'Please supply a valid email'
-                            );
+                            setState(() {
+                              error = 'Please supply a valid email';
+                              loading = false;
+                            });
                           }
                         }
                       },
@@ -80,10 +92,12 @@ class _RegisterState extends State<Register> {
                         'Register',
                         style: TextStyle(color: Colors.white),
                       )),
-                      addVerticalSpace(12),
-                      Text(error, 
-                      style: TextStyle(color: Colors.red),),
-                  addVerticalSpace(20), 
+                  addVerticalSpace(12),
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  addVerticalSpace(20),
                   RichText(
                       text: TextSpan(
                           text: 'Existing memeber? ',

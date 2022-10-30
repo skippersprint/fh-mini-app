@@ -1,7 +1,10 @@
 import 'package:fh_mini_app/services/auth.dart';
+import 'package:fh_mini_app/shared/constants.dart';
 import 'package:fh_mini_app/utils/widget_functions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+import '../../shared/loading.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key, required this.toggleView});
@@ -18,6 +21,8 @@ class _SignInState extends State<SignIn> {
   // instantiate AuthService
   final AuthService _auth = AuthService();
 
+  bool loading = false;
+
   late TapGestureRecognizer gestureRecognizer = TapGestureRecognizer()
     ..onTap = () {
       widget.toggleView();
@@ -31,8 +36,8 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return  SafeArea(
+      child: loading ? Loading() : Scaffold(
           backgroundColor: Colors.brown[100],
           appBar: AppBar(
             backgroundColor: Colors.brown[400],
@@ -46,6 +51,7 @@ class _SignInState extends State<SignIn> {
                 child: Column(children: [
                   addVerticalSpace(20),
                   TextFormField(
+                    decoration: textInputDecoration,
                     validator: (value) =>
                         value!.isEmpty ? 'Enter a valid email' : null,
                     onChanged: (val) {
@@ -56,6 +62,8 @@ class _SignInState extends State<SignIn> {
                   ),
                   addVerticalSpace(20),
                   TextFormField(
+                    decoration:
+                        textInputDecoration.copyWith(hintText: 'Password'),
                     validator: (value) =>
                         value!.length < 6 ? 'Enter atleast 6 characters' : null,
                     obscureText: true,
@@ -69,12 +77,17 @@ class _SignInState extends State<SignIn> {
                   ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            loading = true;
+                          });
                           debugPrint('Sign in valid');
                           dynamic result = await _auth
                               .signInWithEmailAndPassword(email, password);
                           if (result == null) {
-                            setState(() => error = 'Could not sign with those credentials'
-                            );
+                            setState(() {
+                              error = 'Could not sign with those credentials';
+                              loading = false;
+                            });
                           }
                         }
                       },

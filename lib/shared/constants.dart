@@ -4,6 +4,18 @@ import 'package:flutter/material.dart';
 
 double screenWidth = window.physicalSize.width;
 
+const textInputDecoration = InputDecoration(
+  hintText: "Email",
+  fillColor: Colors.white,
+  filled: true,
+  enabledBorder: OutlineInputBorder(
+      borderSide:
+          BorderSide(color: Color.fromARGB(255, 255, 255, 255), width: 20.0)),
+  focusedBorder: OutlineInputBorder(
+      borderSide:
+          BorderSide(color: Color.fromARGB(255, 158, 247, 140), width: 2.0)),
+);
+
 const brandGreen = Color(0xFF23CE6B);
 const brandBlack = Color(0xff272D2D);
 const brandWhite = Color(0xffEEEEEE);

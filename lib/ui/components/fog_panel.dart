@@ -5,7 +5,7 @@ import 'package:fh_mini_app/ui/components/header.dart';
 import 'package:fh_mini_app/utils/widget_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import '../../utils/constants.dart';
+import '../../shared/constants.dart';
 import 'spin_panel.dart';
 
 class FogPanel extends StatefulWidget {

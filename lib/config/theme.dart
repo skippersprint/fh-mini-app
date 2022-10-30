@@ -22,6 +22,23 @@ var myAppTheme = ThemeData(
     textTheme: screenHeight < 1000 ? textThemeSmall : textThemeDefault,
     fontFamily: 'Poppins');
 
+    var myAppThemeDark = ThemeData(
+    colorScheme: const ColorScheme(
+      primary: Color.fromARGB(255, 224, 224, 224),
+      secondary: Color.fromARGB(255, 162, 164, 170),
+      error: Color(0xb71c1cff),
+      surface: Color.fromRGBO(255, 255, 255, 1.0),
+      onPrimary: Color.fromRGBO(255, 255, 255, 1.0),
+      background: Color.fromRGBO(198, 218, 231, 1.0),
+      onSecondary: Color.fromRGBO(255, 255, 255, 1.0),
+      onError: Color.fromRGBO(255, 255, 255, 1.0),
+      brightness: Brightness.dark,
+      onBackground: Color(0x000000FF),
+      onSurface: Color(0x000000FF),
+    ),
+    textTheme: screenHeight < 1000 ? textThemeSmall : textThemeDefault,
+    fontFamily: 'Poppins');
+
 const TextTheme textThemeDefault = TextTheme(
   headline1:
       TextStyle(color: textColor, fontWeight: FontWeight.w600, fontSize: 26),

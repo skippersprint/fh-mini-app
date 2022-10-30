@@ -1,19 +1,15 @@
 import 'package:fh_mini_app/config/theme.dart';
-import 'package:fh_mini_app/screens/landing_screen.dart';
-import 'package:fh_mini_app/screens/wrapper.dart';
+import 'package:fh_mini_app/screens/home_screen.dart';
 import 'package:fh_mini_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
-import 'models/custom_user.dart';
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _firebaseApp = Firebase.initializeApp();
@@ -35,11 +31,10 @@ class MyApp extends StatelessWidget {
               return Text('Error with FBI');
             } else if (snapshot.hasData) {
               return StreamProvider<User?>.value(
-                value: AuthService().userStream, 
-                initialData: null,
-                catchError: null,
-                child: Wrapper()  
-                );
+                  value: AuthService().userStream,
+                  initialData: null,
+                  catchError: null,
+                  child: HomePage());
             } else {
               return Center(
                 child: CircularProgressIndicator(),
