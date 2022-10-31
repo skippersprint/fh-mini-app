@@ -161,7 +161,7 @@ class CardMaker extends StatelessWidget {
     return Container(
       width: 100,
       child: Card(
-        color: Color.fromARGB(255, 61, 61, 61),
+        color: Theme.of(context).primaryColor,
         child: Center(
             child: Text(
           text,
