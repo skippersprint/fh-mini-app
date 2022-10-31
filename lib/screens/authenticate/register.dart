@@ -1,3 +1,5 @@
+import 'package:fh_mini_app/shared/constants.dart';
+import 'package:fh_mini_app/shared/loading.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +15,12 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  
   // key to keeo track of our form's state
   final _formKey = GlobalKey<FormState>();
   // instantiate AuthService
   final AuthService _auth = AuthService();
+
+  bool loading = false;
 
   late TapGestureRecognizer gestureRecognizer = TapGestureRecognizer()
     ..onTap = () {
@@ -27,11 +30,12 @@ class _RegisterState extends State<Register> {
   //text field state
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: loading ? Loading() : Scaffold(
           backgroundColor: Colors.brown[100],
           appBar: AppBar(
             backgroundColor: Colors.brown[400],
@@ -45,7 +49,9 @@ class _RegisterState extends State<Register> {
                 child: Column(children: [
                   addVerticalSpace(20),
                   TextFormField(
-                    validator: (value) => value!.isEmpty ? 'Enter a valid email' : null,
+                    decoration: textInputDecoration,
+                    validator: (value) =>
+                        value!.isEmpty ? 'Enter a valid email' : null,
                     onChanged: (val) {
                       setState(() {
                         email = val;
@@ -54,7 +60,10 @@ class _RegisterState extends State<Register> {
                   ),
                   addVerticalSpace(20),
                   TextFormField(
-                    validator: (value) => value!.length < 6  ? 'Enter atleast 6 characters' : null,
+                    decoration:
+                        textInputDecoration.copyWith(hintText: 'Password'),
+                    validator: (value) =>
+                        value!.length < 6 ? 'Enter atleast 6 characters' : null,
                     obscureText: true,
                     onChanged: (val) {
                       setState(() {
@@ -65,15 +74,29 @@ class _RegisterState extends State<Register> {
                   addVerticalSpace(20),
                   ElevatedButton(
                       onPressed: () async {
-                        if(_formKey.currentState!.validate()){
-                          debugPrint(email);
-                        debugPrint(password);
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            loading = true;
+                          });
+                          dynamic result = await _auth
+                              .registeredWithEmailAndPassword(email, password);
+                          if (result == null) {
+                            setState(() {
+                              error = 'Please supply a valid email';
+                              loading = false;
+                            });
+                          }
                         }
                       },
                       child: Text(
                         'Register',
                         style: TextStyle(color: Colors.white),
                       )),
+                  addVerticalSpace(12),
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.red),
+                  ),
                   addVerticalSpace(20),
                   RichText(
                       text: TextSpan(

@@ -5,7 +5,7 @@ import 'package:fh_mini_app/ui/components/header.dart';
 import 'package:fh_mini_app/utils/widget_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import '../../utils/constants.dart';
+import '../../shared/constants.dart';
 import 'spin_panel.dart';
 
 class FogPanel extends StatefulWidget {
@@ -37,13 +37,7 @@ class _FogPanelState extends State<FogPanel> {
     final Size size = MediaQuery.of(context).size;
     return Column(
       children: [
-        addVerticalSpace(25),
-        Header(),
-        addVerticalSpace(25),
-        PodView(
-          size: size,
-          isSpin: spinType,
-        ),
+       
         Expanded(
           child: Container(
             padding: const EdgeInsets.only(left: 25, top: 10),
@@ -54,6 +48,7 @@ class _FogPanelState extends State<FogPanel> {
                   Text(
                     'Fog Cycles',
                     style: themeData.textTheme.headline4,
+                  
                   ),
                   addVerticalSpace(30),
                   Container(
@@ -63,8 +58,8 @@ class _FogPanelState extends State<FogPanel> {
                       child: ToggleButtons(
                           borderRadius: BorderRadius.circular(12),
                           fillColor: Theme.of(context).colorScheme.primary,
-                          color: brandBlack,
-                          selectedColor: brandWhite,
+                          color: Theme.of(context).colorScheme.secondary,
+                          selectedColor: Theme.of(context).scaffoldBackgroundColor,
                           children: [
                             '2',
                             '4',

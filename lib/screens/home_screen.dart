@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../ui/components/header.dart';
 import '../ui/components/lighting_panel.dart';
+import '../ui/components/pod_view.dart';
+import '../utils/widget_functions.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -102,12 +105,25 @@ class _HomePageState extends State<HomePage> {
           });
           loadScreen();
         },
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        unselectedItemColor: Theme.of(context).colorScheme.secondary,
+        
         showUnselectedLabels: true,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
         type: BottomNavigationBarType.fixed,
       ),
-      body: _currentWidget,
+      body: Column(
+        children: [
+           addVerticalSpace(25),
+        Header(),
+        addVerticalSpace(25),
+        Center(
+          child: PodView(
+            size: size,
+            isSpin: spinType,
+          ),
+        ),
+          Expanded(child: _currentWidget),
+        ],
+      ),
     ));
   }
 }

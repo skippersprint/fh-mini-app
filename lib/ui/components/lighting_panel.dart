@@ -23,15 +23,7 @@ class _LightingPanelState extends State<LightingPanel> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        addVerticalSpace(25),
-        Header(),
-        addVerticalSpace(25),
-        Center(
-          child: PodView(
-            size: size,
-            isSpin: spinType,
-          ),
-        ),
+       
         Padding(
           padding: const EdgeInsets.only(left: 25, top: 10),
           child: Text(

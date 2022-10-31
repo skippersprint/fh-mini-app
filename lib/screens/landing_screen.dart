@@ -5,7 +5,7 @@ import 'package:fh_mini_app/config/theme.dart';
 import 'package:fh_mini_app/screens/help_guide.dart';
 import 'package:fh_mini_app/screens/home_screen.dart';
 import 'package:fh_mini_app/services/auth.dart';
-import 'package:fh_mini_app/utils/constants.dart';
+import 'package:fh_mini_app/shared/constants.dart';
 import 'package:fh_mini_app/utils/widget_functions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

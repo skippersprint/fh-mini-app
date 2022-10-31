@@ -37,14 +37,7 @@ class _SpinPanelState extends State<SpinPanel> {
     final ThemeData themeData = Theme.of(context);
     return Column(
       children: [
-        addVerticalSpace(25),
-        Header(),
-        addVerticalSpace(25),
-        PodView(
-          size: size,
-          isSpin: spinType,
-        ),
-        //addVerticalSpace(20),
+       
         Expanded(
           child: Container(
             padding: const EdgeInsets.only(left: 25, top: 10),
