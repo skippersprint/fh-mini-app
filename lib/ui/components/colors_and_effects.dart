@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:fh_mini_app/utils/widget_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:http/http.dart';
@@ -52,7 +53,8 @@ class _ColorsAndEffectsState extends State<ColorsAndEffects> {
 
   void sendHex(String hexString) async {
     try {
-      await get(Uri.parse('http://192.168.4.1/hex?hexCode=${hexString}')).timeout(Duration(seconds: 3));
+      await get(Uri.parse('http://192.168.4.1/hex?hexCode=${hexString}'))
+          .timeout(Duration(seconds: 3));
     } on TimeoutException catch (_) {
       debugPrint('Connection Timeout');
     }
@@ -66,26 +68,61 @@ class _ColorsAndEffectsState extends State<ColorsAndEffects> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+             //Set color and effect button
+
+            Expanded(
+              child: SizedBox(
+                child: Container(
+                  child: EffectsScroll(),
+                ),
+              ),
+            ),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  ClipRRect(
-                    borderRadius: widget.pickerAreaBorderRadius,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: SizedBox(
-                        width: widget.colorPickerHeight,
-                        height: widget.colorPickerHeight,
-                        child: ColorPickerHueRing(
-                          currentHsvColor,
-                          onColorChanging,
-                          displayThumbColor: widget.displayThumbColor,
-                          strokeWidth: widget.hueRingStrokeWidth,
+                  //Color ring
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: widget.pickerAreaBorderRadius,
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: SizedBox(
+                            width: widget.colorPickerHeight,
+                            height: widget.colorPickerHeight,
+                            child: ColorPickerHueRing(
+                              currentHsvColor,
+                              onColorChanging,
+                              displayThumbColor: widget.displayThumbColor,
+                              strokeWidth: widget.hueRingStrokeWidth,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      Positioned.fill(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: FloatingActionButton(
+                              backgroundColor:
+                                  currentHsvColor.toColor().withAlpha(180),
+                              child: Icon(
+                                Icons.check,
+                              ),
+                              onPressed: () => setState(() {
+                                    String hexString =
+                                        currentHsvColor.toColor().toString();
+                                    sendHex(hexString);
+                                    debugPrint(hexString);
+                                  })),
+                        ),
+                      ),
+                    ],
                   ),
+
+                  addVerticalSpace(10),
+
+                  //Brightness Track
                   if (widget.enableAlpha)
                     SizedBox(
                       height: 40.0,
@@ -100,32 +137,14 @@ class _ColorsAndEffectsState extends State<ColorsAndEffects> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: FloatingActionButton(
-                  backgroundColor: currentHsvColor.toColor().withAlpha(180),
-                  child: Icon(Icons.check),
-                  onPressed: () => setState(() {
-                        String hexString = currentHsvColor.toColor().toString();
-                        sendHex(hexString);
-                        debugPrint(hexString);
-                      })),
-            ),
-            Expanded(
-              child: SizedBox(
-                child: Container(
-                  child: EffectsScroll(),
-                ),
-              ),
-            )
+
+           
           ],
         ),
       ),
     );
   }
 }
-
-
 
 class EffectsScroll extends StatelessWidget {
   const EffectsScroll({

@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _currentIndex = prefs.getInt('BNB') ?? 0;
     });
-  }  
+  }
 
   void initState() {
     super.initState();
@@ -105,22 +105,28 @@ class _HomePageState extends State<HomePage> {
           });
           loadScreen();
         },
-        
         showUnselectedLabels: true,
         selectedItemColor: Theme.of(context).colorScheme.secondary,
         type: BottomNavigationBarType.fixed,
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.access_alarm,
+            color: Colors.black,
+          ),
+          onPressed: () {}),
       body: Column(
         children: [
-           addVerticalSpace(25),
-        Header(),
-        addVerticalSpace(25),
-        Center(
-          child: PodView(
-            size: size,
-            isSpin: spinType,
+          addVerticalSpace(25),
+          Header(),
+          addVerticalSpace(25),
+          Center(
+            child: PodView(
+              size: size,
+              isSpin: spinType,
+            ),
           ),
-        ),
           Expanded(child: _currentWidget),
         ],
       ),
