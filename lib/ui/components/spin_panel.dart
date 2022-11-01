@@ -53,31 +53,25 @@ class _SpinPanelState extends State<SpinPanel> {
                 ),
                 Center(
                   child: ToggleButtons(
-                      borderRadius: BorderRadius.circular(12),
-                      fillColor: Color.fromARGB(255, 211, 211, 211),
-                      highlightColor: Theme.of(context).colorScheme.secondary,
+                    splashColor: Color.fromARGB(0, 0, 0, 0),
+              fillColor: Color.fromARGB(0, 0, 0, 0),
+              borderWidth: 0,
+              //unselected icons color
+              color: Color.fromARGB(255, 91, 91, 91),
+              selectedColor: Theme.of(context).colorScheme.secondary,
                       children: [
                         Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 28, vertical: 6),
-                            child: Image.asset(
-                              'assets/images/rotateAnticlockwise.png',
-                              width: 32,
-                            )),
+                            child: Icon(Icons.rotate_left)),
                         Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 28, vertical: 6),
-                            child: Image.asset(
-                              'assets/images/stop-button.png',
-                              width: 32,
-                            )),
+                            child: Icon(Icons.sync_disabled)),
                         Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 28, vertical: 6),
-                            child: Image.asset(
-                              'assets/images/rotateClockwise.png',
-                              width: 32,
-                            )),
+                            child: Icon(Icons.rotate_right)),
                       ],
                       isSelected: buttonsSelected,
                       onPressed: (int index) {
