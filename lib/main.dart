@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Green Global Aggrovation',
-        theme: CustomTheme.darkTheme,
+        theme: CustomTheme.lightTheme,
         // darkTheme: ThemeData.dark().copyWith(
         //   colorScheme: const ColorScheme(
         //     primary: Color.fromARGB(255, 235, 235, 235),
