@@ -44,12 +44,19 @@ class _HomePageState extends State<HomePage> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _currentIndex = prefs.getInt('BNB') ?? 0;
+      //load control mode with _currentIndex picked from SharedPreferences
+      loadScreen();
+      //set toggle button based on _currentIndex
+      for (int i = 0; i < buttonsSelected.length; i++) {
+        buttonsSelected[i] = i == _currentIndex;
+      }
     });
   }
 
   void initState() {
     super.initState();
     getBNB();
+
     //triggerManualMode();
   }
 
@@ -98,11 +105,12 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         child: Column(
           children: [
-            DrawerHeader(
-                padding: EdgeInsets.all(0),
-                margin: EdgeInsets.all(0),
-                decoration: BoxDecoration(color: Colors.blue),
-                child: Center(child: Text('Drawer Header'))),
+            UserAccountsDrawerHeader(
+                currentAccountPicture: CircleAvatar(
+                  foregroundImage: AssetImage("assets/images/dp.png"),
+                ),
+                accountName: Text('Ankit'),
+                accountEmail: Text('ajangid663@fmail.com')),
             ListTile(
               title: const Text('Profile'),
               leading: Icon(Icons.account_circle),
@@ -135,8 +143,11 @@ class _HomePageState extends State<HomePage> {
                       child: SizedBox(
                         height: 60,
                         child: ListTile(
-                            tileColor: Colors.amber,
-                            title: Icon(Icons.arrow_back_ios)),
+                            tileColor: Color.fromARGB(255, 66, 66, 66),
+                            title: Icon(
+                              Icons.arrow_back,
+                              color: Theme.of(context).colorScheme.secondary,
+                            )),
                       ))),
             ),
           ],
@@ -174,35 +185,15 @@ class _HomePageState extends State<HomePage> {
                 setState(() {
                   _currentIndex = index;
                   debugPrint('Index $index activated');
-
+                  setBNB(index);
+                  loadScreen();
                   for (int i = 0; i < buttonsSelected.length; i++) {
                     buttonsSelected[i] = i == index;
                   }
                 });
-                loadScreen();
-                setBNB(index);
               }),
         ),
-        // items: [
-        //   BottomNavigationBarItem(icon: Icon(Icons.water_drop), label: 'Fog'),
-        //   BottomNavigationBarItem(icon: Icon(Icons.lightbulb), label: 'Lights'),
-        //   BottomNavigationBarItem(
-        //     icon: Icon(Icons.change_circle),
-        //     label: 'Spin',
-        //   ),
-        //   BottomNavigationBarItem(icon: Icon(Icons.crop_din), label: 'Produce')
-        // ],
-        // currentIndex: _currentIndex,
-        // onTap: (int tappedIndex) {
-        //   setBNB(tappedIndex);
-        //   setState(() {
-        //     _currentIndex = tappedIndex;
-        //   });
-        //   loadScreen();
-        // },
-        // showUnselectedLabels: true,
-        // selectedItemColor: Theme.of(context).colorScheme.secondary,
-        // type: BottomNavigationBarType.fixed,
+       
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
