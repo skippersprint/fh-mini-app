@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+  bool _controlMode = false;
 
   void triggerManualMode() async {
     try {
@@ -109,30 +110,41 @@ class _HomePageState extends State<HomePage> {
                 currentAccountPicture: CircleAvatar(
                   foregroundImage: AssetImage("assets/images/dp.png"),
                 ),
-                accountName: Text('Ankit'),
+                accountName: Text(
+                  'Ankit',
+                ),
                 accountEmail: Text('ajangid663@fmail.com')),
             ListTile(
               title: const Text('Profile'),
               leading: Icon(Icons.account_circle),
-              trailing: Icon(Icons.arrow_forward),
+              trailing: Icon(
+                Icons.arrow_forward,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
               onTap: null,
             ),
             ListTile(
               title: const Text('Insights'),
               leading: Icon(Icons.insights),
-              trailing: Icon(Icons.arrow_forward),
+              trailing: Icon(Icons.arrow_forward,
+              color: Theme.of(context).colorScheme.secondary,
+              ),
               onTap: null,
             ),
             ListTile(
               title: const Text('Appearance'),
               leading: Icon(Icons.smartphone),
-              trailing: Icon(Icons.arrow_forward),
+              trailing: Icon(Icons.arrow_forward,
+              color: Theme.of(context).colorScheme.secondary,
+              ),
               onTap: null,
             ),
             ListTile(
               title: const Text('Settings'),
               leading: Icon(Icons.settings),
-              trailing: Icon(Icons.arrow_forward),
+              trailing: Icon(Icons.arrow_forward,
+              color: Theme.of(context).colorScheme.secondary,
+              ),
               onTap: null,
             ),
             Expanded(
@@ -161,9 +173,13 @@ class _HomePageState extends State<HomePage> {
           height: 60.0,
           child: ToggleButtons(
               renderBorder: false,
+
+              //splash and fill color made transparent
               splashColor: Color.fromARGB(0, 0, 0, 0),
               fillColor: Color.fromARGB(0, 0, 0, 0),
-              color: Color.fromARGB(255, 128, 128, 128),
+
+              //unselected icons color
+              color: Color.fromARGB(255, 91, 91, 91),
               selectedColor: Theme.of(context).colorScheme.secondary,
               constraints: BoxConstraints.expand(width: size.width / 4),
               children: [
@@ -193,16 +209,21 @@ class _HomePageState extends State<HomePage> {
                 });
               }),
         ),
-       
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+          backgroundColor: Color.fromARGB(255, 65, 65, 65),
           //mini: true,
           child: Icon(
-            Icons.sports_esports, //bolt
-            color: Color.fromARGB(255, 255, 0, 212),
+            _controlMode ? Icons.sports_esports : Icons.bolt, //bolt
+            color: Theme.of(context).colorScheme.secondary,
           ),
-          onPressed: () {}),
+          onPressed: () {
+            setState(() {
+              _controlMode = !_controlMode;
+              debugPrint('Control mode toggled');
+            });
+          }),
       body: Column(
         children: [
           addVerticalSpace(25),

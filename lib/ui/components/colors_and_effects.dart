@@ -154,7 +154,7 @@ class EffectsScroll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListWheelScrollView(
-        useMagnifier: true,
+        useMagnifier: true, 
         magnification: 1.2,
         physics: FixedExtentScrollPhysics(),
         perspective: 0.009,
