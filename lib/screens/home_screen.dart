@@ -102,6 +102,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
+            actions: [Icon(Icons.settings)],
             elevation: 0.0,
           ),
           drawer: Drawer(
@@ -118,38 +119,20 @@ class _HomePageState extends State<HomePage> {
                 ListTile(
                   title: const Text('Profile'),
                   leading: Icon(Icons.account_circle),
-                  trailing: Icon(
-                    Icons.arrow_forward,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
                   onTap: null,
                 ),
                 ListTile(
                   title: const Text('Insights'),
                   leading: Icon(Icons.insights),
-                  trailing: Icon(
-                    Icons.arrow_forward,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
                   onTap: null,
                 ),
                 ListTile(
-                  title: const Text('Appearance'),
-                  leading: Icon(Icons.smartphone),
-                  trailing: Icon(
-                    Icons.arrow_forward,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  onTap: null,
-                ),
-                ListTile(
-                  title: const Text('Settings'),
-                  leading: Icon(Icons.settings),
-                  trailing: Icon(
-                    Icons.arrow_forward,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  onTap: null,
+                  title: const Text('Accent'),
+                  leading: Icon(Icons.palette),
+                  onTap: () {
+                    Navigator.pop(context);
+                    accentInstruction(context);
+                  },
                 ),
                 ListTile(
                     title: const Text('Dark Mode'),
@@ -161,6 +144,10 @@ class _HomePageState extends State<HomePage> {
                       },
                       activeColor: Theme.of(context).colorScheme.secondary,
                     )),
+                ListTile(
+                  title: const Text('Log out'),
+                  leading: Icon(Icons.logout),
+                ),
                 Expanded(
                   child: Align(
                       alignment: Alignment.bottomCenter,
@@ -169,12 +156,10 @@ class _HomePageState extends State<HomePage> {
                           child: SizedBox(
                             height: 60,
                             child: ListTile(
-                                
                                 title: Icon(
-                                  Icons.arrow_back,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                )),
+                              Icons.arrow_back,
+                              color: Theme.of(context).colorScheme.secondary,
+                            )),
                           ))),
                 ),
               ],
@@ -225,7 +210,6 @@ class _HomePageState extends State<HomePage> {
               //mini: true,
               child: Icon(
                 _controlMode ? Icons.sports_esports : Icons.bolt, //bolt
-                
               ),
               onPressed: () {
                 setState(() {
@@ -245,4 +229,28 @@ class _HomePageState extends State<HomePage> {
           )),
     );
   }
+}
+
+Future<dynamic> accentInstruction(BuildContext context) {
+  return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(
+              'Now use the color picker to set a custom accent color. Or set the current color as accent'),
+          actions: [
+            TextButton(
+              onPressed: () {},
+              child: const Text('Set current',
+                  style: TextStyle(color: Colors.white)),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: const Text('Pick a color',
+                  style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        );
+      });
 }

@@ -15,7 +15,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  // key to keeo track of our form's state
+  // key to keep track of our form's state
   final _formKey = GlobalKey<FormState>();
   // instantiate AuthService
   final AuthService _auth = AuthService();

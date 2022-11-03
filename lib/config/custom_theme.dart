@@ -27,6 +27,9 @@ class CustomTheme {
         splashColor: Color.fromARGB(0, 0, 0, 0),
         fillColor: Color.fromARGB(0, 0, 0, 0),
 
+        borderColor: Color.fromARGB(255, 255, 255, 255),
+                     selectedBorderColor: Color.fromARGB(255, 255, 255, 255),
+
         //unselected icons color
         color: Color.fromARGB(255, 155, 155, 155),
         selectedColor: Color.fromARGB(255, 61, 61, 61),
@@ -75,6 +78,9 @@ class CustomTheme {
       toggleButtonsTheme: ToggleButtonsThemeData(
         splashColor: Color.fromARGB(0, 0, 0, 0),
         fillColor: Color.fromARGB(0, 0, 0, 0),
+
+        borderColor: Color.fromARGB(255, 40, 40, 40),
+        selectedBorderColor: Color.fromARGB(255, 40, 40, 40),
 
         //unselected icons color
         color: Color.fromARGB(255, 91, 91, 91),

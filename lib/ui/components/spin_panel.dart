@@ -7,8 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/spin_change.dart';
 import '../../utils/widget_functions.dart';
-import 'pod_view.dart';
-import 'header.dart';
 
 class SpinPanel extends StatefulWidget {
   const SpinPanel({super.key});
@@ -43,11 +41,10 @@ class _SpinPanelState extends State<SpinPanel> {
     //setState required because, changing BAB index causes SpinPanel to rerun
     //hence requires currentSpinState value again
     setState(() {
-         for (int i = 0; i < buttonsSelected.length; i++) {
-      buttonsSelected[i] = i == currentSpinState;
-    }
+      for (int i = 0; i < buttonsSelected.length; i++) {
+        buttonsSelected[i] = i == currentSpinState;
+      }
     });
- 
   }
 
   var buttonsSelected = [false, false, true];
@@ -80,20 +77,16 @@ class _SpinPanelState extends State<SpinPanel> {
                 ),
                 Center(
                   child: ToggleButtons(
-                     
                       children: [
-                        Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 28, vertical: 6),
-                            child: Icon(Icons.rotate_left)),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 28, vertical: 6),
-                            child: Icon(Icons.sync_disabled)),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 28, vertical: 6),
-                            child: Icon(Icons.rotate_right)),
+                        CustomIcon(
+                            icon: const Icon(Icons.rotate_left),
+                            isSelected: buttonsSelected[0]),
+                        CustomIcon(
+                            icon: const Icon(Icons.sync_disabled),
+                            isSelected: buttonsSelected[1]),
+                        CustomIcon(
+                            icon: const Icon(Icons.rotate_right),
+                            isSelected: buttonsSelected[2]),
                       ],
                       isSelected: buttonsSelected,
                       onPressed: (int index) {
@@ -118,6 +111,37 @@ class _SpinPanelState extends State<SpinPanel> {
           ),
         )
       ],
+    );
+  }
+}
+
+class CustomIcon extends StatelessWidget {
+  final Icon? icon;
+  final bool isSelected;
+  final double? height;
+
+  const CustomIcon({Key? key, this.icon, this.isSelected = false, this.height = 47})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: height,
+      height: height,
+      decoration: BoxDecoration(
+        border: isSelected
+            ? Border.all(
+                color: const Color(0xffC5CAE9),
+              )
+            : null,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(30),
+        ),
+      ),
+      child: Center(
+        child: Container(
+          child: icon,
+        ),
+      ),
     );
   }
 }
