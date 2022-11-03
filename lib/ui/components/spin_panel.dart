@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/widget_functions.dart';
 import 'pod_view.dart';
@@ -37,7 +38,6 @@ class _SpinPanelState extends State<SpinPanel> {
     final ThemeData themeData = Theme.of(context);
     return Column(
       children: [
-       
         Expanded(
           child: Container(
             padding: const EdgeInsets.only(left: 25, top: 10),
@@ -53,12 +53,12 @@ class _SpinPanelState extends State<SpinPanel> {
                 ),
                 Center(
                   child: ToggleButtons(
-                    splashColor: Color.fromARGB(0, 0, 0, 0),
-              fillColor: Color.fromARGB(0, 0, 0, 0),
-              borderWidth: 0,
-              //unselected icons color
-              color: Color.fromARGB(255, 91, 91, 91),
-              selectedColor: Theme.of(context).colorScheme.secondary,
+                      splashColor: Color.fromARGB(0, 0, 0, 0),
+                      fillColor: Color.fromARGB(0, 0, 0, 0),
+                      borderWidth: 0,
+                      //unselected icons color
+                      color: Color.fromARGB(255, 91, 91, 91),
+                      selectedColor: Theme.of(context).colorScheme.secondary,
                       children: [
                         Padding(
                             padding: const EdgeInsets.symmetric(
@@ -78,7 +78,9 @@ class _SpinPanelState extends State<SpinPanel> {
                         setState(() {
                           makeGetReq(index);
                           debugPrint('Fog fetch func called');
-                          spinType = index;
+                          Provider.of<SpinChangeModel>(context, listen: false)
+                              .spinChange = index;
+                          //spinType = index;
                           debugPrint('Pod spinning in $spinType');
                           for (int i = 0; i < buttonsSelected.length; i++) {
                             buttonsSelected[i] = i == index;
@@ -93,5 +95,16 @@ class _SpinPanelState extends State<SpinPanel> {
         )
       ],
     );
+  }
+}
+
+class SpinChangeModel extends ChangeNotifier {
+  int _currentSpin = 0;
+
+  int get currentSpin => _currentSpin;
+
+  set spinChange(int currentSpin) {
+    _currentSpin = currentSpin;
+    notifyListeners();
   }
 }
