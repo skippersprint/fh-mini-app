@@ -1,22 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class PodView extends StatefulWidget {
-  PodView({Key? key, required this.size, this.isSpin}) : super(key: key);
+import '../../models/spin_change.dart';
+import '../../models/ui_mode.dart';
+
+class PodView extends StatelessWidget {
+  const PodView({
+    Key? key,
+    required this.size,
+  }) : super(key: key);
 
   final Size size;
-  int? isSpin;
 
-  @override
-  State<PodView> createState() => _PodViewState();
-}
-
-class _PodViewState extends State<PodView> {
   @override
   Widget build(BuildContext context) {
+    final bool uiTheme = Provider.of<UIModeModel>(context).isDarkMode;
+    final int providerSpinType =
+        Provider.of<SpinChangeModel>(context).currentSpin;
     return SizedBox(
-        height: widget.size.height * 0.38,
-        child: widget.isSpin == 1
-            ? Image.asset('assets/images/${widget.isSpin}.png')
-            : Image.asset('assets/images/${widget.isSpin}.gif'));
+        height: size.height * 0.38, child: podAsset(uiTheme, providerSpinType));
+  }
+
+  Widget podAsset(bool uiTheme, int spinType) {
+    if (uiTheme) {
+      return spinType == 1
+          ? Image.asset('assets/images/${spinType}_dark.png')
+          : Image.asset('assets/images/${spinType}_dark.gif');
+    } else {
+      return spinType == 1
+          ? Image.asset('assets/images/$spinType.png')
+          : Image.asset('assets/images/$spinType.gif');
+    }
   }
 }
