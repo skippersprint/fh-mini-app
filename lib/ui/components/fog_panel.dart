@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fh_mini_app/config/custom_theme.dart';
 import 'package:fh_mini_app/utils/widget_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -48,33 +49,27 @@ class _FogPanelState extends State<FogPanel> {
                   addVerticalSpace(30),
                   Text('Current fog rate : ${_value.toInt() * 5} %'),
                   Container(
-                      child: SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                        valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-                        valueIndicatorColor:
-                            Theme.of(context).colorScheme.secondary,
-                        showValueIndicator: ShowValueIndicator.always),
-                    child: Slider(
-                      divisions: 10,
-                      label: '${_value.toInt()} min',
-                      activeColor: Theme.of(context).primaryColor,
-                      thumbColor: Theme.of(context).colorScheme.secondary,
-                      min: 0,
-                      max: 20,
-                      value: _value,
-                      onChanged: (value) {
-                        setState(() {
-                          _value = value;
-                        });
-                      },
-                      onChangeEnd: (value) {
-                        setState(() {
-                          debugPrint('Value ends here');
-                        });
-                      },
-                    ),
-                  )),
+                      child: Slider(
+                        divisions: 10,
+                        label: '${_value.toInt()} min',
+                        activeColor: Theme.of(context).primaryColor,
+                        thumbColor: Theme.of(context).colorScheme.secondary,
+                        min: 0,
+                        max: 20,
+                        value: _value,
+                        onChanged: (value) {
+                          setState(() {
+                            _value = value;
+                          });
+                        },
+                        onChangeEnd: (value) {
+                          setState(() {
+                            debugPrint('Value ends here');
+                          });
+                        },
+                      )),
                   SwitchListTile(
+                    activeColor: Theme.of(context).colorScheme.secondary,
                       title: Text(
                         'Make it rain',
                         style: themeData.textTheme.bodyText2,

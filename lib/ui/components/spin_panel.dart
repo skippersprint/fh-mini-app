@@ -28,7 +28,7 @@ class _SpinPanelState extends State<SpinPanel> {
     }
   }
 
-  int currentSpinState = 0;
+  int currentSpinState = 2;
 
   Future<void> setSpinState(int index) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -50,7 +50,7 @@ class _SpinPanelState extends State<SpinPanel> {
  
   }
 
-  var buttonsSelected = [false, true, false];
+  var buttonsSelected = [false, false, true];
 
   @override
   void initState() {
@@ -80,12 +80,7 @@ class _SpinPanelState extends State<SpinPanel> {
                 ),
                 Center(
                   child: ToggleButtons(
-                      splashColor: Color.fromARGB(0, 0, 0, 0),
-                      fillColor: Color.fromARGB(0, 0, 0, 0),
-                      borderWidth: 0,
-                      //unselected icons color
-                      color: Color.fromARGB(255, 91, 91, 91),
-                      selectedColor: Theme.of(context).colorScheme.secondary,
+                     
                       children: [
                         Padding(
                             padding: const EdgeInsets.symmetric(

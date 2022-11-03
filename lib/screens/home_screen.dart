@@ -46,16 +46,17 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getBAB() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-      _currentIndex = prefs.getInt('BNB') ?? 0;
-      //load control mode with _currentIndex picked from SharedPreferences
-      loadScreen();
-      //set toggle button based on _currentIndex
-      //setstate not required as this _currentIndex is to be known only once
-      //in the app life
-      for (int i = 0; i < buttonsSelected.length; i++) {
-        buttonsSelected[i] = i == _currentIndex;
-      }
+    _currentIndex = prefs.getInt('BNB') ?? 0;
+    //load control mode with _currentIndex picked from SharedPreferences
+    loadScreen();
+    //set toggle button based on _currentIndex
+    //setstate not required as this _currentIndex is to be known only once
+    //in the app life
+    for (int i = 0; i < buttonsSelected.length; i++) {
+      buttonsSelected[i] = i == _currentIndex;
+    }
   }
+
   @override
   void initState() {
     super.initState();
@@ -101,11 +102,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
-            title: Text('Mini'),
             elevation: 0.0,
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            iconTheme:
-                IconThemeData(color: Theme.of(context).colorScheme.secondary),
           ),
           drawer: Drawer(
             child: Column(
@@ -172,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                           child: SizedBox(
                             height: 60,
                             child: ListTile(
-                                tileColor: Color.fromARGB(255, 66, 66, 66),
+                                
                                 title: Icon(
                                   Icons.arrow_back,
                                   color:
@@ -184,21 +181,14 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           bottomNavigationBar: BottomAppBar(
-            color: Color.fromARGB(255, 31, 31, 31),
+            //color: Color.fromARGB(255, 31, 31, 31),
             shape: const CircularNotchedRectangle(),
+            elevation: 20,
             //notchMargin: 6.0,
             child: Container(
               height: 60.0,
               child: ToggleButtons(
                   renderBorder: false,
-
-                  //splash and fill color made transparent
-                  splashColor: Color.fromARGB(0, 0, 0, 0),
-                  fillColor: Color.fromARGB(0, 0, 0, 0),
-
-                  //unselected icons color
-                  color: Color.fromARGB(255, 91, 91, 91),
-                  selectedColor: Theme.of(context).colorScheme.secondary,
                   constraints: BoxConstraints.expand(width: size.width / 4),
                   children: [
                     Icon(
@@ -231,11 +221,11 @@ class _HomePageState extends State<HomePage> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingActionButton(
-              backgroundColor: Color.fromARGB(255, 65, 65, 65),
+
               //mini: true,
               child: Icon(
                 _controlMode ? Icons.sports_esports : Icons.bolt, //bolt
-                color: Theme.of(context).colorScheme.secondary,
+                
               ),
               onPressed: () {
                 setState(() {
@@ -256,5 +246,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-

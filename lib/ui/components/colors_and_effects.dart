@@ -104,6 +104,7 @@ class _ColorsAndEffectsState extends State<ColorsAndEffects> {
                         child: Align(
                           alignment: Alignment.center,
                           child: FloatingActionButton(
+                            foregroundColor: Colors.white,
                               backgroundColor:
                                   currentHsvColor.toColor().withAlpha(180),
                               child: Icon(
