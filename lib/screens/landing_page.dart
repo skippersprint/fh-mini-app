@@ -1,5 +1,4 @@
 import 'package:fh_mini_app/screens/authenticate/authenticate.dart';
-import 'package:fh_mini_app/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatefulWidget {
@@ -20,7 +19,6 @@ class _LandingPageState extends State<LandingPage> {
     final Size size = MediaQuery.of(context).size;
     final ThemeData themeData = Theme.of(context);
 
-
     if (widget.state) {
       return Authenticate();
     } else {
@@ -36,10 +34,10 @@ class _LandingPageState extends State<LandingPage> {
                   width: size.width,
                   child: Container(
                       decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 0, 17, 51),
-                    borderRadius: new BorderRadius.only(
-                      bottomLeft: const Radius.circular(130.0),
-                      bottomRight: const Radius.circular(130.0),
+                    color: Color.fromARGB(255, 16, 24, 39),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: const Radius.circular(120.0),
+                      bottomRight: const Radius.circular(120.0),
                     ),
                   )),
                 ),
@@ -48,7 +46,7 @@ class _LandingPageState extends State<LandingPage> {
                     Text(
                       'Botanix',
                       style: TextStyle(
-                          color: Color.fromARGB(255, 29, 29, 29), fontSize: 50),
+                          color: Color.fromARGB(255, 29, 29, 29), fontSize: 42),
                     ),
                     Text(
                       'Indoor farming made easy',
@@ -64,7 +62,7 @@ class _LandingPageState extends State<LandingPage> {
                       style: ButtonStyle(
                           elevation: MaterialStateProperty.all(3),
                           backgroundColor: MaterialStateProperty.all(
-                              Color.fromARGB(255, 168, 255, 117)),
+                              Color.fromARGB(255, 177, 245, 138)),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
@@ -81,13 +79,13 @@ class _LandingPageState extends State<LandingPage> {
                           Text(
                             'Get Started for Free ',
                             style: TextStyle(
-                                color: Color.fromARGB(255, 63, 63, 63),
-                                fontWeight: FontWeight.bold),
+                              color: Color.fromARGB(255, 77, 77, 77),
+                            ),
                           ),
                           Icon(
                             Icons.arrow_forward_ios,
                             color: Color.fromARGB(255, 61, 61, 61),
-                            size: 14,
+                            size: 10,
                           )
                         ],
                       ),
@@ -96,12 +94,19 @@ class _LandingPageState extends State<LandingPage> {
                 )
               ],
             ),
-            Center(
+            Positioned(
+              top: ((size.height * 0.45) - (size.height * 0.07)),
+              left: ((size.width * 0.5) - (size.height * 0.07)),
               child: Container(
-                height: size.height * 0.18,
-                width: size.height * 0.18,
-                child: Image(image: AssetImage('assets/images/logo.png')),
-              ),
+                  height: size.height * 0.14,
+                  width: size.height * 0.14,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 110, 110, 110),
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/botanix.png'))),
+                  )),
             )
           ],
         ),

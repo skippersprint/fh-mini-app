@@ -14,7 +14,7 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<User?>(context);
     debugPrint(user.toString());
 
-    //return either landingScreen or authenticate page
+    //return either PodScreen or LandingPage
     if (user == null) {
       debugPrint("user value nulla reporting");
       return LandingPage();

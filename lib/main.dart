@@ -1,6 +1,6 @@
 import 'package:fh_mini_app/config/custom_theme.dart';
 import 'package:fh_mini_app/models/ui_mode.dart';
-import 'package:fh_mini_app/screens/landing_page.dart';
+import 'package:fh_mini_app/screens/authenticate/authenticate.dart';
 import 'package:fh_mini_app/screens/wrapper.dart';
 import 'package:fh_mini_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';

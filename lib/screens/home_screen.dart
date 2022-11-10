@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fh_mini_app/models/ui_mode.dart';
+import 'package:fh_mini_app/services/auth.dart';
 import 'package:fh_mini_app/ui/components/fog_panel.dart';
 import 'package:fh_mini_app/ui/components/produce_panel.dart';
 import 'package:fh_mini_app/ui/components/spin_panel.dart';
@@ -99,6 +100,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final provider = Provider.of<UIModeModel>(context, listen: false);
+    final AuthService auth = AuthService();
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -147,6 +149,11 @@ class _HomePageState extends State<HomePage> {
                 ListTile(
                   title: const Text('Log out'),
                   leading: Icon(Icons.logout),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    auth.signOut();
+                  },
                 ),
                 Expanded(
                   child: Align(

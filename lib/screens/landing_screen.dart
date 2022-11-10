@@ -164,6 +164,7 @@ class _PodScreenState extends State<PodScreen> {
             actions: [
               TextButton(
                 onPressed: () {
+                  Navigator.pop(context);
                   Navigator.of(context).push(_createRoute(HomePage()));
                 },
                 style: TextButton.styleFrom(
