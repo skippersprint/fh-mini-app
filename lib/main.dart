@@ -1,9 +1,6 @@
 import 'package:fh_mini_app/config/custom_theme.dart';
 import 'package:fh_mini_app/models/ui_mode.dart';
-import 'package:fh_mini_app/screens/authenticate/authenticate.dart';
-import 'package:fh_mini_app/screens/authenticate/register.dart';
-import 'package:fh_mini_app/screens/home_screen.dart';
-import 'package:fh_mini_app/screens/wrapper.dart';
+import 'package:fh_mini_app/screens/landing_page.dart';
 import 'package:fh_mini_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +25,9 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Green Global Aggrovation',
-              theme: uiTheme.isDarkMode ? CustomTheme.darkTheme : CustomTheme.lightTheme,
+              theme: uiTheme.isDarkMode
+                  ? CustomTheme.darkTheme
+                  : CustomTheme.lightTheme,
               home: FutureBuilder(
                 future: _firebaseApp,
                 builder: (context, snapshot) {
@@ -40,7 +39,7 @@ class MyApp extends StatelessWidget {
                         value: AuthService().userStream,
                         initialData: null,
                         catchError: null,
-                        child: Authenticate());
+                        child: LandingPage());
                   } else {
                     return Center(
                       child: CircularProgressIndicator(),

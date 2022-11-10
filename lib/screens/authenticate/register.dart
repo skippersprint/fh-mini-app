@@ -79,10 +79,10 @@ class _RegisterState extends State<Register> {
                             loading = true;
                           });
                           dynamic result = await _auth
-                              .registeredWithEmailAndPassword(email, password);
+                              .registerWithEmailAndPassword(email, password);
                           if (result == null) {
                             setState(() {
-                              error = 'Please supply a valid email';
+                              error = 'Some error occured';
                               loading = false;
                             });
                           }

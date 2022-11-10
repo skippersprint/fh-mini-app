@@ -20,7 +20,7 @@ class Wrapper extends StatelessWidget {
       debugPrint("user value null reporting");
       return Authenticate();
     } else {
-      return HomePage();
+      return LandingScreen();
     }
   }
 }
