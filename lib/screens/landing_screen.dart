@@ -12,14 +12,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
 
-class LandingScreen extends StatefulWidget {
-  const LandingScreen({super.key});
+class PodScreen extends StatefulWidget {
+  const PodScreen({super.key});
 
   @override
-  State<LandingScreen> createState() => _LandingScreenState();
+  State<PodScreen> createState() => _PodScreenState();
 }
 
-class _LandingScreenState extends State<LandingScreen> {
+class _PodScreenState extends State<PodScreen> {
   final url = 'http://192.168.4.1/LED';
 
   bool? hasLoaded = false;
@@ -77,7 +77,7 @@ class _LandingScreenState extends State<LandingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final AuthService _auth = AuthService();    
+    final AuthService _auth = AuthService();
     final Size size = MediaQuery.of(context).size;
     final ThemeData themeData = Theme.of(context);
     return SafeArea(
@@ -111,12 +111,12 @@ class _LandingScreenState extends State<LandingScreen> {
                   ),
                   addVerticalSpace(10),
                   spinkit(hasLoaded),
-                   IconButton(
-                icon: Icon(Icons.account_circle),
-                onPressed: () async {
-                  await _auth.signOut();
-                },
-              ),
+                  IconButton(
+                    icon: Icon(Icons.account_circle),
+                    onPressed: () async {
+                      await _auth.signOut();
+                    },
+                  ),
                 ],
               ),
             )
@@ -136,7 +136,6 @@ class _LandingScreenState extends State<LandingScreen> {
   }
 
   Future<dynamic> connectionTimeout(BuildContext context) {
-    
     final TapGestureRecognizer gestureRecognizer = TapGestureRecognizer()
       ..onTap = () {
         Navigator.of(context).push(_createRoute(HelpGuide()));
@@ -172,7 +171,6 @@ class _LandingScreenState extends State<LandingScreen> {
                 child: const Text('Enter anyway',
                     style: TextStyle(color: Colors.white)),
               ),
-             
             ],
           );
         });

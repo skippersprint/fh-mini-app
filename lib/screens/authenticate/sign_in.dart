@@ -117,11 +117,11 @@ class _SignInState extends State<SignIn> {
                         addVerticalSpace(12),
 
                         //Sign in Anonymously
-                        // ElevatedButton(
-                        //     onPressed: () async {
-                        //       _auth.signInAnon();
-                        //     },
-                        //     child: Text('Anon')),
+                        ElevatedButton(
+                            onPressed: () async {
+                              _auth.signInAnon();
+                            },
+                            child: Text('Anon')),
                         RichText(
                             text: TextSpan(
                                 text: 'Not a memeber? ',
