@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../ui/components/header.dart';
 import '../ui/components/lighting_panel.dart';
 import '../ui/components/pod_view.dart';
 import '../utils/widget_functions.dart';
@@ -21,6 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+  bool _controlMode = false;
 
   void triggerManualMode() async {
     try {
@@ -45,12 +45,19 @@ class _HomePageState extends State<HomePage> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _currentIndex = prefs.getInt('BNB') ?? 0;
+      //load control mode with _currentIndex picked from SharedPreferences
+      loadScreen();
+      //set toggle button based on _currentIndex
+      for (int i = 0; i < buttonsSelected.length; i++) {
+        buttonsSelected[i] = i == _currentIndex;
+      }
     });
-  }  
+  }
 
   void initState() {
     super.initState();
     getBNB();
+
     //triggerManualMode();
   }
 
@@ -82,48 +89,187 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  var buttonsSelected = [false, true, false, false];
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.water_drop), label: 'Fog'),
-          BottomNavigationBarItem(icon: Icon(Icons.lightbulb), label: 'Lights'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.change_circle),
-            label: 'Spin',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.crop_din), label: 'Produce')
-        ],
-        currentIndex: _currentIndex,
-        onTap: (int tappedIndex) {
-          setBNB(tappedIndex);
-          setState(() {
-            _currentIndex = tappedIndex;
-          });
-          loadScreen();
-        },
-        
-        showUnselectedLabels: true,
-        selectedItemColor: Theme.of(context).colorScheme.secondary,
-        type: BottomNavigationBarType.fixed,
+      appBar: AppBar(
+        title: Text('Mini'),
+        elevation: 0.0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        iconTheme:
+            IconThemeData(color: Theme.of(context).colorScheme.secondary),
       ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            UserAccountsDrawerHeader(
+                currentAccountPicture: CircleAvatar(
+                  foregroundImage: AssetImage("assets/images/dp.png"),
+                ),
+                accountName: Text(
+                  'Ankit',
+                ),
+                accountEmail: Text('ajangid663@fmail.com')),
+            ListTile(
+              title: const Text('Profile'),
+              leading: Icon(Icons.account_circle),
+              trailing: Icon(
+                Icons.arrow_forward,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              onTap: null,
+            ),
+            ListTile(
+              title: const Text('Insights'),
+              leading: Icon(Icons.insights),
+              trailing: Icon(Icons.arrow_forward,
+              color: Theme.of(context).colorScheme.secondary,
+              ),
+              onTap: null,
+            ),
+            ListTile(
+              title: const Text('Appearance'),
+              leading: Icon(Icons.smartphone),
+              trailing: Icon(Icons.arrow_forward,
+              color: Theme.of(context).colorScheme.secondary,
+              ),
+              onTap: null,
+            ),
+            ListTile(
+              title: const Text('Settings'),
+              leading: Icon(Icons.settings),
+              trailing: Icon(Icons.arrow_forward,
+              color: Theme.of(context).colorScheme.secondary,
+              ),
+              onTap: null,
+            ),
+            Expanded(
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: GestureDetector(
+                      onTap: (() => Navigator.pop(context)),
+                      child: SizedBox(
+                        height: 60,
+                        child: ListTile(
+                            tileColor: Color.fromARGB(255, 66, 66, 66),
+                            title: Icon(
+                              Icons.arrow_back,
+                              color: Theme.of(context).colorScheme.secondary,
+                            )),
+                      ))),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Color.fromARGB(255, 31, 31, 31),
+        shape: const CircularNotchedRectangle(),
+        //notchMargin: 6.0,
+        child: Container(
+          height: 60.0,
+          child: ToggleButtons(
+              renderBorder: false,
+
+              //splash and fill color made transparent
+              splashColor: Color.fromARGB(0, 0, 0, 0),
+              fillColor: Color.fromARGB(0, 0, 0, 0),
+
+              //unselected icons color
+              color: Color.fromARGB(255, 91, 91, 91),
+              selectedColor: Theme.of(context).colorScheme.secondary,
+              constraints: BoxConstraints.expand(width: size.width / 4),
+              children: [
+                Icon(
+                  Icons.water_drop,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Icon(Icons.lightbulb),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Icon(Icons.change_circle),
+                ),
+                Icon(Icons.paid_rounded),
+              ],
+              isSelected: buttonsSelected,
+              onPressed: (int index) {
+                setState(() {
+                  _currentIndex = index;
+                  debugPrint('Index $index activated');
+                  setBNB(index);
+                  loadScreen();
+                  for (int i = 0; i < buttonsSelected.length; i++) {
+                    buttonsSelected[i] = i == index;
+                  }
+                });
+              }),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Color.fromARGB(255, 65, 65, 65),
+          //mini: true,
+          child: Icon(
+            _controlMode ? Icons.sports_esports : Icons.bolt, //bolt
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          onPressed: () {
+            setState(() {
+              _controlMode = !_controlMode;
+              debugPrint('Control mode toggled');
+            });
+          }),
       body: Column(
         children: [
-           addVerticalSpace(25),
-        Header(),
-        addVerticalSpace(25),
-        Center(
-          child: PodView(
-            size: size,
-            isSpin: spinType,
+          addVerticalSpace(25),
+          Center(
+            child: PodView(
+              size: size,
+              isSpin: spinType,
+            ),
           ),
-        ),
           Expanded(child: _currentWidget),
         ],
       ),
     ));
+  }
+}
+
+class BottomIcon extends StatelessWidget {
+  final String? iconText;
+  final IconData icon;
+  final EdgeInsetsGeometry? padding;
+
+  BottomIcon({super.key, this.iconText, required this.icon, this.padding});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding ?? EdgeInsets.all(0),
+      child: Column(children: [
+        InkWell(
+          splashColor: Colors.red,
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          onTap: () {},
+          child: IconButton(
+            onPressed: null,
+            padding: EdgeInsets.all(0),
+            icon: Icon(
+              icon,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        // Text(
+        //   iconText,
+        //   style: TextStyle(fontSize: 10, color: Colors.white),
+        // )
+      ]),
+    );
   }
 }

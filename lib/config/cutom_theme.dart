@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 double screenHeight = window.physicalSize.height;
 
+var accentColor = Color.fromARGB(235, 15, 255, 215);
+
 class CustomTheme {
   static ThemeData get lightTheme {
     return ThemeData(
@@ -47,7 +49,7 @@ class CustomTheme {
 
       colorScheme: ColorScheme(
         primary: Color.fromARGB(255, 61, 61, 61),
-        secondary: Color.fromARGB(255, 170, 255, 0),
+        secondary: accentColor,
         error: Color.fromARGB(183, 255, 43, 28),
         surface: Color.fromRGBO(255, 255, 255, 1.0),
         onPrimary: Color.fromRGBO(255, 255, 255, 1.0),

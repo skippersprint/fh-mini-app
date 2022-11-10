@@ -1,6 +1,6 @@
 import 'package:fh_mini_app/ui/components/colors_and_effects.dart';
 import 'package:flutter/material.dart';
-
+import 'colors_and_effects.dart';
 import '../../utils/widget_functions.dart';
 import 'pod_view.dart';
 import 'header.dart';
