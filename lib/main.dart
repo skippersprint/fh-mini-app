@@ -1,5 +1,6 @@
 import 'package:fh_mini_app/config/cutom_theme.dart';
 import 'package:fh_mini_app/screens/home_screen.dart';
+import 'package:fh_mini_app/screens/wrapper.dart';
 import 'package:fh_mini_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
                   value: AuthService().userStream,
                   initialData: null,
                   catchError: null,
-                  child: HomePage());
+                  child: Wrapper());
             } else {
               return Center(
                 child: CircularProgressIndicator(),
