@@ -15,7 +15,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  // key to keep track of our form's state
+  // key to keeo track of our form's state
   final _formKey = GlobalKey<FormState>();
   // instantiate AuthService
   final AuthService _auth = AuthService();
@@ -79,10 +79,10 @@ class _RegisterState extends State<Register> {
                             loading = true;
                           });
                           dynamic result = await _auth
-                              .registerWithEmailAndPassword(email, password);
+                              .registeredWithEmailAndPassword(email, password);
                           if (result == null) {
                             setState(() {
-                              error = 'Some error occured';
+                              error = 'Please supply a valid email';
                               loading = false;
                             });
                           }
