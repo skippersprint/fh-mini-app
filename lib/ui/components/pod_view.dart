@@ -14,7 +14,7 @@ class PodView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool uiTheme = Provider.of<UIModeModel>(context).isDarkMode;
+    final bool uiTheme = Provider.of<UIModeModel>(context).getModeValue;
     final int providerSpinType =
         Provider.of<SpinChangeModel>(context).currentSpin;
     return SizedBox(

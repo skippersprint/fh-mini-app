@@ -13,21 +13,30 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  final Future<FirebaseApp> _firebaseApp = Firebase.initializeApp();
+class MyApp extends StatefulWidget {
   MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final Future<FirebaseApp> _firebaseApp = Firebase.initializeApp();
+
+  
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => UIModeModel(),
+        create: (context) => UIModeModel()..initialize(),
         builder: (context, _) {
           //will be refering to UiModeModel with uiTheme
           final uiTheme = Provider.of<UIModeModel>(context);
+          debugPrint("Your mode value is : ${uiTheme.getModeValue}");
           return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Green Global Aggrovation',
-              theme: uiTheme.isDarkMode
+              theme: uiTheme.getModeValue
                   ? CustomTheme.darkTheme
                   : CustomTheme.lightTheme,
               home: FutureBuilder(

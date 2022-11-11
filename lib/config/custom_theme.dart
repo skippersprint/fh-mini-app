@@ -12,6 +12,10 @@ class CustomTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       primaryColor: Color.fromARGB(255, 61, 61, 61), // has no use
+      inputDecorationTheme: const InputDecorationTheme(
+            labelStyle: TextStyle(color: Colors.black),
+            hintStyle: TextStyle(color: Colors.grey),
+          ),
       appBarTheme: AppBarTheme(
         iconTheme: IconThemeData(color: Color.fromARGB(255, 61, 61, 61)),
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -67,6 +71,10 @@ class CustomTheme {
     return ThemeData(
       primaryColor:
           Color.fromARGB(255, 61, 61, 61), //used in scroll wheel button
+          inputDecorationTheme: const InputDecorationTheme(
+            labelStyle: TextStyle(color: Colors.black),
+            hintStyle: TextStyle(color: Colors.grey),
+          ),
       bottomAppBarColor: Color.fromARGB(255, 31, 31, 31),
       //custom made pallete
       primarySwatch: Palette.kToDark,

@@ -41,6 +41,7 @@ class _SignInState extends State<SignIn> {
       child: loading
           ? Loading()
           : Scaffold(
+            
               resizeToAvoidBottomInset: false,
               body: Container(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
@@ -56,7 +57,7 @@ class _SignInState extends State<SignIn> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image.asset("assets/images/botanix.png"),
+                                    Image.asset("assets/images/leaf.png"),
                                     Text(
                                       'Botanix  ',
                                       style: TextStyle(
@@ -75,6 +76,9 @@ class _SignInState extends State<SignIn> {
                           Container(
                             child: Column(children: [
                               TextFormField(
+                                style: TextStyle(
+                                  color: Colors.black
+                                ),
                                 decoration: textInputDecoration.copyWith(
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 0, horizontal: 20),
@@ -109,6 +113,9 @@ class _SignInState extends State<SignIn> {
                               ),
                               addVerticalSpace(20),
                               TextFormField(
+                                style: TextStyle(
+                                  color: Colors.black
+                                ),
                                 decoration: textInputDecoration.copyWith(
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 0, horizontal: 20),
@@ -126,6 +133,7 @@ class _SignInState extends State<SignIn> {
                                     ),
                                   ),
                                   hintText: 'Password',
+                                  
                                 ),
                                 validator: (value) => value!.length < 6
                                     ? 'Enter atleast 6 characters'
@@ -196,15 +204,12 @@ class _SignInState extends State<SignIn> {
                               RichText(
                                   text: TextSpan(
                                       text: 'Not a member? ',
-                                      style: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 95, 95, 95)),
+                                      
                                       children: <TextSpan>[
                                     TextSpan(
                                       text: 'Register',
                                       style: const TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 34, 34, 34),
+                                          decoration: TextDecoration.underline,
                                           fontWeight: FontWeight.w600),
                                       recognizer: gestureRecognizer,
                                     )

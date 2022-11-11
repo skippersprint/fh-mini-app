@@ -54,7 +54,7 @@ class _RegisterState extends State<Register> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image.asset("assets/images/botanix.png"),
+                                    Image.asset("assets/images/leaf.png"),
                                     Text(
                                       'Botanix  ',
                                       style: TextStyle(
@@ -73,6 +73,7 @@ class _RegisterState extends State<Register> {
                           Container(
                             child: Column(children: [
                               TextFormField(
+                                style: TextStyle(color: Colors.black),
                                 decoration: textInputDecoration.copyWith(
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 0, horizontal: 20),
@@ -107,6 +108,7 @@ class _RegisterState extends State<Register> {
                               ),
                               addVerticalSpace(20),
                               TextFormField(
+                                style: TextStyle(color: Colors.black),
                                 decoration: textInputDecoration.copyWith(
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 0, horizontal: 20),
@@ -185,15 +187,11 @@ class _RegisterState extends State<Register> {
                               RichText(
                                   text: TextSpan(
                                       text: 'Already a member? ',
-                                      style: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 95, 95, 95)),
                                       children: <TextSpan>[
                                     TextSpan(
                                       text: 'Sign In',
                                       style: const TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 34, 34, 34),
+                                          decoration: TextDecoration.underline,
                                           fontWeight: FontWeight.w600),
                                       recognizer: gestureRecognizer,
                                     )

@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final provider = Provider.of<UIModeModel>(context, listen: false);
+    final uiTheme = Provider.of<UIModeModel>(context, listen: false);
     final AuthService auth = AuthService();
     return SafeArea(
       child: Scaffold(
@@ -140,9 +140,9 @@ class _HomePageState extends State<HomePage> {
                     title: const Text('Dark Mode'),
                     leading: Icon(Icons.nightlight),
                     trailing: Switch(
-                      value: provider.isDarkMode,
+                      value: uiTheme.getModeValue,
                       onChanged: (value) {
-                        provider.toggle(value);
+                        uiTheme.toggle(value);
                       },
                       activeColor: Theme.of(context).colorScheme.secondary,
                     )),

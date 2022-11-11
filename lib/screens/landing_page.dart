@@ -45,12 +45,10 @@ class _LandingPageState extends State<LandingPage> {
                   children: [
                     Text(
                       'Botanix',
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 29, 29, 29), fontSize: 42),
+                      style: TextStyle(fontSize: 42),
                     ),
                     Text(
                       'Indoor farming made easy',
-                      style: TextStyle(color: Colors.black),
                     ),
                   ],
                 ),
@@ -105,7 +103,7 @@ class _LandingPageState extends State<LandingPage> {
                         color: Color.fromARGB(255, 110, 110, 110),
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: AssetImage('assets/images/botanix.png'))),
+                            image: AssetImage('assets/images/leaf.png'))),
                   )),
             )
           ],
