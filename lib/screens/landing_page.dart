@@ -24,6 +24,7 @@ class _LandingPageState extends State<LandingPage> {
     } else {
       return SafeArea(
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
             Column(

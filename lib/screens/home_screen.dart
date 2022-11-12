@@ -118,16 +118,16 @@ class _HomePageState extends State<HomePage> {
                       'Ankit',
                     ),
                     accountEmail: Text('ajangid663@fmail.com')),
-                ListTile(
-                  title: const Text('Profile'),
-                  leading: Icon(Icons.account_circle),
-                  onTap: null,
-                ),
-                ListTile(
-                  title: const Text('Insights'),
-                  leading: Icon(Icons.insights),
-                  onTap: null,
-                ),
+                // ListTile(
+                //   title: const Text('Profile'),
+                //   leading: Icon(Icons.account_circle),
+                //   onTap: null,
+                // ),
+                // ListTile(
+                //   title: const Text('Insights'),
+                //   leading: Icon(Icons.insights),
+                //   onTap: null,
+                // ),
                 ListTile(
                   title: const Text('Accent'),
                   leading: Icon(Icons.palette),

@@ -26,7 +26,7 @@ class _SpinPanelState extends State<SpinPanel> {
     }
   }
 
-  int currentSpinState = 2;
+  int currentSpinState = 1;
 
   Future<void> setSpinState(int index) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -47,7 +47,7 @@ class _SpinPanelState extends State<SpinPanel> {
     });
   }
 
-  var buttonsSelected = [false, false, true];
+  var buttonsSelected = [true, false, false];
 
   @override
   void initState() {
