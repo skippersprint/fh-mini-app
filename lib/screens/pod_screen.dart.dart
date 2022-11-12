@@ -22,7 +22,7 @@ class PodScreen extends StatefulWidget {
 class _PodScreenState extends State<PodScreen> {
   final url = 'http://192.168.4.1/LED';
 
-  bool? hasLoaded = false;
+  bool loading = false;
 
   late Image image1;
   late Image image2;
@@ -30,6 +30,7 @@ class _PodScreenState extends State<PodScreen> {
   late Image image4;
 
   void fetchData() async {
+    loading = true;
     await Future.delayed(Duration(seconds: 2));
     try {
       await get(Uri.parse(url)).timeout(const Duration(seconds: 2));
@@ -51,7 +52,7 @@ class _PodScreenState extends State<PodScreen> {
         connectionTimeout(context);
       });
     } finally {
-      hasLoaded = true;
+      loading = false;
     }
   }
 
@@ -87,17 +88,12 @@ class _PodScreenState extends State<PodScreen> {
         height: size.height,
         child: Stack(
           children: [
-            Image.asset(
-              'assets/images/leaf.jpg',
-              height: size.height,
-              fit: BoxFit.fitHeight,
-            ),
             Center(
               child: Column(
                 children: [
                   addVerticalSpace(50),
                   Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/leaf.png',
                     height: size.height * 0.14,
                   ),
                   Text(
@@ -107,19 +103,22 @@ class _PodScreenState extends State<PodScreen> {
                   addVerticalSpace(30),
                   PodStatus(
                     themeData: themeData,
-                    hasLoaded: hasLoaded!,
+                    hasLoaded: loading,
                   ),
                   addVerticalSpace(10),
-                  spinkit(hasLoaded),
-                  IconButton(
-                    icon: Icon(Icons.account_circle),
-                    onPressed: () async {
-                      await _auth.signOut();
-                    },
-                  ),
                 ],
               ),
-            )
+            ),
+            loading
+                ? Center(
+                    child: Container(
+                    color: Color.fromARGB(132, 46, 46, 46),
+                    child: SpinKitSquareCircle(
+                      color: Color.fromARGB(255, 117, 235, 49),
+                      size: 48,
+                    ),
+                  ))
+                : SizedBox.shrink()
           ],
         ),
       )),
@@ -146,20 +145,19 @@ class _PodScreenState extends State<PodScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             content: RichText(
-              text: TextSpan(
-                  style: const TextStyle(color: brandBlack),
-                  children: [
-                    const TextSpan(
-                        text:
-                            'Connection could not be established to Mini. For further information on troubleshooting practices refer to our '),
-                    TextSpan(
-                        text: 'help guide',
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 33, 82, 243),
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.w600),
-                        recognizer: gestureRecognizer),
-                  ]),
+              text: TextSpan(children: [
+                const TextSpan(
+                    style: TextStyle(color: Color.fromARGB(255, 124, 124, 124)),
+                    text:
+                        'Connection could not be established to Mini. For further information on troubleshooting practices refer to our '),
+                TextSpan(
+                    text: 'help guide',
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 124, 124, 124),
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.w600),
+                    recognizer: gestureRecognizer),
+              ]),
             ),
             actions: [
               TextButton(
@@ -168,9 +166,10 @@ class _PodScreenState extends State<PodScreen> {
                   Navigator.of(context).push(_createRoute(HomePage()));
                 },
                 style: TextButton.styleFrom(
-                    backgroundColor: myAppTheme.colorScheme.primary),
-                child: const Text('Enter anyway',
-                    style: TextStyle(color: Colors.white)),
+                    backgroundColor: Color.fromARGB(255, 177, 245, 138)),
+                child: const Text(
+                  'Enter anyway',
+                ),
               ),
             ],
           );
@@ -188,12 +187,12 @@ class PodStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return hasLoaded
-        ? const Text("couldn't connect :/",
-            style: TextStyle(fontSize: 12, color: Colors.red))
-        : Text(
+        ? Text(
             'Connecting to your pod',
             style: themeData.textTheme.bodySmall,
-          );
+          )
+        : const Text("Could not find Pod",
+            style: TextStyle(fontSize: 12, color: Colors.red));
   }
 }
 

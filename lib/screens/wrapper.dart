@@ -1,5 +1,5 @@
 import 'package:fh_mini_app/screens/landing_page.dart';
-import 'package:fh_mini_app/screens/landing_screen.dart';
+import 'package:fh_mini_app/screens/pod_screen.dart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
