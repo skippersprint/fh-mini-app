@@ -17,7 +17,8 @@ class _FogPanelState extends State<FogPanel> {
   double _value = 0.0;
 
   void fogFetch(int index) async {
-    String url = 'http://192.168.0.103/$index';
+    String url = 'http://192.168.0.103/fog/$index';
+    debugPrint(url);
 
     try {
       Response fogResponse =
@@ -50,26 +51,27 @@ class _FogPanelState extends State<FogPanel> {
                   Text('Current fog rate : ${_value.toInt() * 5} %'),
                   Container(
                       child: Slider(
-                        divisions: 10,
-                        label: '${_value.toInt()} min',
-                        activeColor: Theme.of(context).primaryColor,
-                        thumbColor: Theme.of(context).colorScheme.secondary,
-                        min: 0,
-                        max: 20,
-                        value: _value,
-                        onChanged: (value) {
-                          setState(() {
-                            _value = value;
-                          });
-                        },
-                        onChangeEnd: (value) {
-                          setState(() {
-                            debugPrint('Value ends here');
-                          });
-                        },
-                      )),
+                    divisions: 10,
+                    label: '${_value.toInt()} min',
+                    activeColor: Theme.of(context).primaryColor,
+                    thumbColor: Theme.of(context).colorScheme.secondary,
+                    min: 0,
+                    max: 20,
+                    value: _value,
+                    onChanged: (value) {
+                      setState(() {
+                        _value = value;
+                      });
+                    },
+                    onChangeEnd: (value) {
+                      setState(() {
+                        debugPrint('Value ends here : ${value.toInt()}');
+                        fogFetch(value.toInt());
+                      });
+                    },
+                  )),
                   SwitchListTile(
-                    activeColor: Theme.of(context).colorScheme.secondary,
+                      activeColor: Theme.of(context).colorScheme.secondary,
                       title: Text(
                         'Make it rain',
                         style: themeData.textTheme.bodyText2,
@@ -79,7 +81,7 @@ class _FogPanelState extends State<FogPanel> {
                       onChanged: (bool value) {
                         setState(() {
                           fogState = value;
-                          fogState ? fogFetch(20) : fogFetch(40);
+                          fogState ? fogFetch(1) : fogFetch(11);
                         });
                       },
                       secondary: fogState
@@ -99,5 +101,3 @@ class _FogPanelState extends State<FogPanel> {
     );
   }
 }
-
-
