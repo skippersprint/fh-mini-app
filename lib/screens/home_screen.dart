@@ -26,6 +26,20 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   bool _controlMode = false;
 
+  void controlMode(bool mode) async {
+    //mode ? 1 : 0;
+    
+    String url = 'http://192.168.0.103/mode/$mode';
+debugPrint(url);
+    try {
+      Response fogResponse =
+          await get(Uri.parse(url)).timeout(Duration(seconds: 3));
+      print('Response from ESP : ${fogResponse.body}');
+    } on TimeoutException catch (_) {
+      print('Could not communicate');
+    }
+  }
+
   void triggerManualMode() async {
     try {
       Response resp = await get(Uri.parse('http://192.168.4.1/manualMode'))
@@ -216,11 +230,12 @@ class _HomePageState extends State<HomePage> {
 
               //mini: true,
               child: Icon(
-                _controlMode ? Icons.sports_esports : Icons.bolt, //bolt
+                _controlMode ? Icons.bolt : Icons.sports_esports, //bolt
               ),
               onPressed: () {
                 setState(() {
                   _controlMode = !_controlMode;
+                  controlMode(_controlMode);
                   debugPrint('Control mode toggled');
                 });
               }),

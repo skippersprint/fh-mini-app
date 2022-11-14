@@ -16,9 +16,9 @@ class SpinPanel extends StatefulWidget {
 }
 
 class _SpinPanelState extends State<SpinPanel> {
-  void makeGetReq(int index) async {
+  void spinMode(int index) async {
     try {
-      Response response = await get(Uri.parse('http://192.168.4.1/spin/$index'))
+      Response response = await get(Uri.parse('http://192.168.0.103/spin/$index'))
           .timeout(Duration(seconds: 3));
       debugPrint(response.body);
     } on TimeoutException catch (_) {
@@ -92,7 +92,7 @@ class _SpinPanelState extends State<SpinPanel> {
                       onPressed: (int index) {
                         setState(() {
                           currentSpinState = index;
-                          makeGetReq(index);
+                          spinMode(index);
                           debugPrint('Fog fetch func called');
                           Provider.of<SpinChangeModel>(context, listen: false)
                               .spinChange = index;

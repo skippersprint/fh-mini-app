@@ -53,7 +53,7 @@ class _ColorsAndEffectsState extends State<ColorsAndEffects> {
 
   void sendHex(String hexString) async {
     try {
-      await get(Uri.parse('http://192.168.4.1/hex?hexCode=${hexString}'))
+      await get(Uri.parse('http://192.168.0.103/hex?hexCode=${hexString}')) 
           .timeout(Duration(seconds: 3));
     } on TimeoutException catch (_) {
       debugPrint('Connection Timeout');
