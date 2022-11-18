@@ -219,22 +219,7 @@ class _SignInState extends State<SignIn> {
                                       borderRadius: BorderRadius.circular(28.0),
                                     ))),
                                 onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    setState(() {
-                                      loading = true;
-                                    });
-                                    debugPrint('Sign in valid');
-                                    dynamic result =
-                                        await _auth.signInWithEmailAndPassword(
-                                            email, password);
-                                    if (result == null) {
-                                      setState(() {
-                                        error =
-                                            'Could not sign with those credentials';
-                                        loading = false;
-                                      });
-                                    }
-                                  }
+                                  await _auth.googleLogin();
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

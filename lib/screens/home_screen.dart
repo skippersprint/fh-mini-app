@@ -111,6 +111,8 @@ class _HomePageState extends State<HomePage> {
 
   var buttonsSelected = [false, true, false, false];
 
+  final AuthService _auth = AuthService();
+ 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -132,7 +134,8 @@ class _HomePageState extends State<HomePage> {
                     accountName: Text(
                       'Ankit',
                     ),
-                    accountEmail: Text('ajangid663@fmail.com')),
+                    accountEmail: Text((_auth.inputData()) ?? "user")
+                    ),
                 // ListTile(
                 //   title: const Text('Profile'),
                 //   leading: Icon(Icons.account_circle),
