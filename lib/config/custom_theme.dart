@@ -3,25 +3,27 @@ import 'dart:ui';
 import 'package:fh_mini_app/config/palette.dart';
 import 'package:fh_mini_app/config/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/ui_mode.dart';
 
 double screenHeight = window.physicalSize.height;
 
-var accentColor = Color.fromARGB(235, 187, 255, 0);
-
 class CustomTheme {
+  CustomTheme(Color this.accentColor);
+  Color accentColor = Color.fromARGB(235, 187, 255, 0);
+  
   static ThemeData get lightTheme {
     return ThemeData(
       primaryColor: Color.fromARGB(255, 61, 61, 61), // has no use
       inputDecorationTheme: const InputDecorationTheme(
-            labelStyle: TextStyle(color: Colors.black),
-            hintStyle: TextStyle(color: Colors.grey),
-          ),
+        labelStyle: TextStyle(color: Colors.black),
+        hintStyle: TextStyle(color: Colors.grey),
+      ),
       appBarTheme: AppBarTheme(
         iconTheme: IconThemeData(color: Color.fromARGB(255, 61, 61, 61)),
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
       ),
-
-  
 
       //custom made pallete
       primarySwatch: Palette.lightPalette,
@@ -30,9 +32,8 @@ class CustomTheme {
       toggleButtonsTheme: ToggleButtonsThemeData(
         splashColor: Color.fromARGB(0, 0, 0, 0),
         fillColor: Color.fromARGB(0, 0, 0, 0),
-
         borderColor: Color.fromARGB(255, 255, 255, 255),
-                     selectedBorderColor: Color.fromARGB(255, 255, 255, 255),
+        selectedBorderColor: Color.fromARGB(255, 255, 255, 255),
 
         //unselected icons color
         color: Color.fromARGB(255, 155, 155, 155),
@@ -45,7 +46,6 @@ class CustomTheme {
 
       sliderTheme: SliderThemeData(
         valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-       
         showValueIndicator: ShowValueIndicator.always,
       ),
 
@@ -67,14 +67,14 @@ class CustomTheme {
     );
   }
 
-  static ThemeData get darkTheme {
+   ThemeData get darkTheme {
     return ThemeData(
       primaryColor:
           Color.fromARGB(255, 61, 61, 61), //used in scroll wheel button
-          inputDecorationTheme: const InputDecorationTheme(
-            labelStyle: TextStyle(color: Colors.black),
-            hintStyle: TextStyle(color: Colors.grey),
-          ),
+      inputDecorationTheme: const InputDecorationTheme(
+        labelStyle: TextStyle(color: Colors.black),
+        hintStyle: TextStyle(color: Colors.grey),
+      ),
       bottomAppBarColor: Color.fromARGB(255, 31, 31, 31),
       //custom made pallete
       primarySwatch: Palette.kToDark,
@@ -94,10 +94,6 @@ class CustomTheme {
         color: Color.fromARGB(255, 91, 91, 91),
         selectedColor: accentColor,
       ),
-
-
-      
-      
 
       floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: Color.fromARGB(255, 65, 65, 65),

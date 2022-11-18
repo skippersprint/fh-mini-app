@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:fh_mini_app/models/ui_mode.dart';
 import 'package:fh_mini_app/services/auth.dart';
+import 'package:fh_mini_app/ui/components/colors_and_effects.dart';
 import 'package:fh_mini_app/ui/components/fog_panel.dart';
 import 'package:fh_mini_app/ui/components/produce_panel.dart';
 import 'package:fh_mini_app/ui/components/spin_panel.dart';
@@ -28,9 +29,9 @@ class _HomePageState extends State<HomePage> {
 
   void controlMode(bool mode) async {
     //mode ? 1 : 0;
-    
-    String url = 'http://192.168.0.103/mode/$mode';
-debugPrint(url);
+
+    String url = 'http://192.168.4.1/mode/$mode';
+    debugPrint(url);
     try {
       Response fogResponse =
           await get(Uri.parse(url)).timeout(Duration(seconds: 3));
@@ -118,7 +119,7 @@ debugPrint(url);
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
-            actions: [Icon(Icons.settings)],
+            //actions: [Icon(Icons.settings)],
             elevation: 0.0,
           ),
           drawer: Drawer(
@@ -142,14 +143,8 @@ debugPrint(url);
                 //   leading: Icon(Icons.insights),
                 //   onTap: null,
                 // ),
-                ListTile(
-                  title: const Text('Accent'),
-                  leading: Icon(Icons.palette),
-                  onTap: () {
-                    Navigator.pop(context);
-                    accentInstruction(context);
-                  },
-                ),
+                //Accent tile only available in dark mode.
+
                 ListTile(
                     title: const Text('Dark Mode'),
                     leading: Icon(Icons.nightlight),
@@ -160,6 +155,28 @@ debugPrint(url);
                       },
                       activeColor: Theme.of(context).colorScheme.secondary,
                     )),
+                uiTheme.getModeValue
+                    ? ListTile(
+                        title: const Text('Accent'),
+                        leading: Icon(
+                          Icons.palette,
+                        ),
+                        onTap: () {
+                          //switch to lighting panel
+                          setState(() {
+                            _currentIndex = 1;
+                            debugPrint('Index 1 activated');
+                            setBAB(1);
+                            loadScreen();
+                            for (int i = 0; i < buttonsSelected.length; i++) {
+                              buttonsSelected[i] = i == 1;
+                            }
+                          });
+                          Navigator.pop(context);
+                          accentInstruction(context);
+                        },
+                      )
+                    : SizedBox.shrink(),
                 ListTile(
                   title: const Text('Log out'),
                   leading: Icon(Icons.logout),
@@ -254,24 +271,24 @@ debugPrint(url);
 }
 
 Future<dynamic> accentInstruction(BuildContext context) {
+  final uiTheme = Provider.of<UIModeModel>(context, listen: false);
   return showDialog(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
           content: Text(
-              'Now use the color picker to set a custom accent color. Or set the current color as accent'),
+              'The current color on the color wheel will be set as accent.'),
           actions: [
             TextButton(
-              onPressed: () {},
-              child: const Text('Set current',
-                  style: TextStyle(color: Colors.white)),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: const Text('Pick a color',
-                  style: TextStyle(color: Colors.white)),
-            ),
+                style: TextButton.styleFrom(
+                  backgroundColor: currentHsvColor.toColor(),
+                ),
+                onPressed: () {
+                  uiTheme.changeAccent(currentHsvColor.toColor());
+                  Navigator.pop(context);
+                },
+                child: Text('Okay'))
           ],
         );
       });

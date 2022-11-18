@@ -53,7 +53,7 @@ class _ColorsAndEffectsState extends State<ColorsAndEffects> {
 
   void sendHex(String hexString) async {
     try {
-      await get(Uri.parse('http://192.168.0.103/hex?hexCode=${hexString}')) 
+      await get(Uri.parse('http://192.168.4.1/hex?hexCode=${hexString}'))
           .timeout(Duration(seconds: 3));
     } on TimeoutException catch (_) {
       debugPrint('Connection Timeout');
@@ -68,7 +68,7 @@ class _ColorsAndEffectsState extends State<ColorsAndEffects> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-             //Set color and effect button
+            //Set color and effect button
 
             Expanded(
               child: SizedBox(
@@ -104,7 +104,7 @@ class _ColorsAndEffectsState extends State<ColorsAndEffects> {
                         child: Align(
                           alignment: Alignment.center,
                           child: FloatingActionButton(
-                            foregroundColor: Colors.white,
+                              foregroundColor: Colors.white,
                               backgroundColor:
                                   currentHsvColor.toColor().withAlpha(180),
                               child: Icon(
@@ -138,8 +138,6 @@ class _ColorsAndEffectsState extends State<ColorsAndEffects> {
                 ],
               ),
             ),
-
-           
           ],
         ),
       ),
@@ -155,7 +153,7 @@ class EffectsScroll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListWheelScrollView(
-        useMagnifier: true, 
+        useMagnifier: true,
         magnification: 1.2,
         physics: FixedExtentScrollPhysics(),
         perspective: 0.009,

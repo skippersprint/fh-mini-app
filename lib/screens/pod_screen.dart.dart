@@ -28,6 +28,9 @@ class _PodScreenState extends State<PodScreen> {
   late Image image2;
   late Image image3;
   late Image image4;
+  late Image image5;
+  late Image image6;
+  late Image image7;
 
   void fetchData() async {
     loading = true;
@@ -64,6 +67,9 @@ class _PodScreenState extends State<PodScreen> {
     image2 = Image.asset('assets/images/1.png');
     image3 = Image.asset('assets/images/2.gif');
     image4 = Image.asset('assets/images/rainyOn.png');
+    image5 = Image.asset('assets/images/0_dark.gif');
+    image6 = Image.asset('assets/images/1_dark.png');
+    image7 = Image.asset('assets/images/2_dark.gif');
     fetchData();
   }
 
@@ -74,6 +80,9 @@ class _PodScreenState extends State<PodScreen> {
     precacheImage(image2.image, context);
     precacheImage(image3.image, context);
     precacheImage(image4.image, context);
+    precacheImage(image5.image, context);
+    precacheImage(image6.image, context);
+    precacheImage(image7.image, context);
   }
 
   @override

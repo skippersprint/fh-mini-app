@@ -1,8 +1,6 @@
 import 'package:fh_mini_app/config/custom_theme.dart';
 import 'package:fh_mini_app/models/ui_mode.dart';
-import 'package:fh_mini_app/screens/authenticate/authenticate.dart';
 import 'package:fh_mini_app/screens/pod_screen.dart.dart';
-import 'package:fh_mini_app/screens/wrapper.dart';
 import 'package:fh_mini_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +22,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final Future<FirebaseApp> _firebaseApp = Firebase.initializeApp();
 
-  
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -38,7 +34,7 @@ class _MyAppState extends State<MyApp> {
               debugShowCheckedModeBanner: false,
               title: 'Green Global Aggrovation',
               theme: uiTheme.getModeValue
-                  ? CustomTheme.darkTheme
+                  ? CustomTheme(uiTheme.accent).darkTheme
                   : CustomTheme.lightTheme,
               home: FutureBuilder(
                 future: _firebaseApp,
@@ -51,7 +47,7 @@ class _MyAppState extends State<MyApp> {
                         value: AuthService().userStream,
                         initialData: null,
                         catchError: null,
-                        child: Wrapper());
+                        child: PodScreen());
                   } else {
                     return Center(
                       child: CircularProgressIndicator(),

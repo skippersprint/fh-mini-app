@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class SpinChangeModel extends ChangeNotifier {
-  int _currentSpin = 2;
+  int _currentSpin = 1;
 
   int get currentSpin => _currentSpin;
 

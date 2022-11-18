@@ -18,7 +18,7 @@ class SpinPanel extends StatefulWidget {
 class _SpinPanelState extends State<SpinPanel> {
   void spinMode(int index) async {
     try {
-      Response response = await get(Uri.parse('http://192.168.0.103/spin/$index'))
+      Response response = await get(Uri.parse('http://192.168.4.1/spin/$index'))
           .timeout(Duration(seconds: 3));
       debugPrint(response.body);
     } on TimeoutException catch (_) {
@@ -38,6 +38,9 @@ class _SpinPanelState extends State<SpinPanel> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     currentSpinState = prefs.getInt('spinState') ?? 1;
     debugPrint('Value got from spin Cache - $currentSpinState');
+    //once the stored value of spinState is assigned to currentSpinState, we use it to update model spinning asset with :
+     Provider.of<SpinChangeModel>(context, listen: false).spinChange = currentSpinState;
+     
     //setState required because, changing BAB index causes SpinPanel to rerun
     //hence requires currentSpinState value again
     setState(() {
@@ -92,8 +95,10 @@ class _SpinPanelState extends State<SpinPanel> {
                       onPressed: (int index) {
                         setState(() {
                           currentSpinState = index;
+                          // make a get req to ESP with the spin index
                           spinMode(index);
                           debugPrint('Fog fetch func called');
+
                           Provider.of<SpinChangeModel>(context, listen: false)
                               .spinChange = index;
                           //spinType = index;
@@ -120,7 +125,8 @@ class CustomIcon extends StatelessWidget {
   final bool isSelected;
   final double? height;
 
-  const CustomIcon({Key? key, this.icon, this.isSelected = false, this.height = 47})
+  const CustomIcon(
+      {Key? key, this.icon, this.isSelected = false, this.height = 47})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

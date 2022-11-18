@@ -17,7 +17,7 @@ class _FogPanelState extends State<FogPanel> {
   double _value = 0.0;
 
   void fogFetch(int index) async {
-    String url = 'http://192.168.0.103/fog/$index';
+    String url = 'http://192.168.4.1/fog/$index';
     debugPrint(url);
 
     try {
