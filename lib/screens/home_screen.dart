@@ -143,7 +143,6 @@ class _HomePageState extends State<HomePage> {
                 //   leading: Icon(Icons.insights),
                 //   onTap: null,
                 // ),
-                //Accent tile only available in dark mode.
 
                 ListTile(
                     title: const Text('Dark Mode'),
@@ -151,10 +150,12 @@ class _HomePageState extends State<HomePage> {
                     trailing: Switch(
                       value: uiTheme.getModeValue,
                       onChanged: (value) {
-                        uiTheme.toggle(value);
+                        uiTheme.setMode(value);
                       },
                       activeColor: Theme.of(context).colorScheme.secondary,
                     )),
+
+                //Accent tile only available in dark mode.
                 uiTheme.getModeValue
                     ? ListTile(
                         title: const Text('Accent'),
@@ -285,7 +286,7 @@ Future<dynamic> accentInstruction(BuildContext context) {
                   backgroundColor: currentHsvColor.toColor(),
                 ),
                 onPressed: () {
-                  uiTheme.changeAccent(currentHsvColor.toColor());
+                  uiTheme.setAccent(currentHsvColor.toColor());
                   Navigator.pop(context);
                 },
                 child: Text('Okay'))
