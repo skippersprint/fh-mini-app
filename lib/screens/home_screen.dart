@@ -6,6 +6,7 @@ import 'package:fh_mini_app/ui/components/colors_and_effects.dart';
 import 'package:fh_mini_app/ui/components/fog_panel.dart';
 import 'package:fh_mini_app/ui/components/produce_panel.dart';
 import 'package:fh_mini_app/ui/components/spin_panel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
@@ -111,13 +112,12 @@ class _HomePageState extends State<HomePage> {
 
   var buttonsSelected = [false, true, false, false];
 
-  final AuthService _auth = AuthService();
- 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final uiTheme = Provider.of<UIModeModel>(context, listen: false);
-    final AuthService auth = AuthService();
+    final AuthService _auth = AuthService();
+    final user = FirebaseAuth.instance.currentUser!;
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -129,13 +129,12 @@ class _HomePageState extends State<HomePage> {
               children: [
                 UserAccountsDrawerHeader(
                     currentAccountPicture: CircleAvatar(
-                      foregroundImage: AssetImage("assets/images/dp.png"),
+                      foregroundImage: NetworkImage(user.photoURL!),
                     ),
                     accountName: Text(
-                      'Ankit',
+                      user.displayName ?? "Dummy",
                     ),
-                    accountEmail: Text((_auth.inputData()) ?? "user")
-                    ),
+                    accountEmail: Text((user.email) ?? "user")),
                 // ListTile(
                 //   title: const Text('Profile'),
                 //   leading: Icon(Icons.account_circle),
@@ -187,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.pop(context);
-                    auth.signOut();
+                    _auth.signOut();
                   },
                 ),
                 Expanded(

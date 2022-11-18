@@ -16,12 +16,12 @@ class AuthService {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   GoogleSignInAccount? _user;
 
-  String? inputData() {
-    final User? user = auth.currentUser;
-    final String? email = user!.email;
-    debugPrint(email);
-    return email;
-  }
+  // String? inputData() {
+  //   final User? user = auth.currentUser;
+  //   final String? email = user!.email;
+  //   debugPrint(email);
+  //   return email;
+  // }
 
   // sign in anonymously
   Future signInAnon() async {
